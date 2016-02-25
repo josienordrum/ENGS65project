@@ -43,8 +43,8 @@ private:
     orientation  orient;        //determine if vertical or horizontal ship
     
 public:
-    ship(){
-        blocks = new shipblock[size];
+    ship(int givensize){
+        blocks = new shipblock[givensize];
         isafloat = true;
     }
     
@@ -80,8 +80,14 @@ public:
 class board{
 private:
     ship *ships;                //array of ships to check how many are left
-    int dimension;                   //(so we can check if a point is on the board)
+    static int dimension;       //(so we can check if a point is on the board)
 public:
+    board(int givendimension) { //initialize to a matrix of zeros
+        **ships = new ship[givendimension][givendimension];
+        for (int i=0; i<N; ++i)
+            for (int j=0; j<(6-i); ++j) //save space by only creating one int for every possible route
+                ship[i][j] = 0;
+    }
 //functions: initialize, print, destroy?
 };
 
