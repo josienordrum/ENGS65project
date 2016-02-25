@@ -3,6 +3,7 @@
 //  ENG65Project
 //
 //  Created by Josephine Nordrum on 2/22/16.
+//	Edited by Jenny Seong on 2/24/16.
 //  Copyright © 2016 Josephine Nordrum. All rights reserved.
 
 #include <iostream>
@@ -23,15 +24,15 @@ public:
     }
 };
 
-enum blocktype {engine, deck, artillery}; //these are the type of shipblocks
+enum blocktype {water, engine, deck, artillery, hitwater, hitship, sunkship}; //these are the type of blocks
 enum orientation {vertical, horzontal};    //what is the ships orientation
 enum inputletter {A, B, C, D, E, F, G, H, I, J, K}; //these turn the input coordinates into numbers
 
 
-struct shipblock {
+struct block {
     blocktype type;            //enumeration of engine/deck/artillary room/ etc
-    bool stillstanding;             //enumeration of  float/sunk
-    coordinates b;             //coordinates of shipblock
+    bool stillstanding;           //enumeration of  float/sunk
+    coordinates b;             //coordinates of block
 };
 
 class ship {
@@ -39,12 +40,12 @@ private:
     string name;                //ships should have names
     int size;                   //how many squares does the ship take up?
     bool isafloat;              //is the boat afloat?
-    shipblock *blocks;          //array of the ship's components
+    block *blocks;          //array of the ship's components
     orientation  orient;        //determine if vertical or horizontal ship
     
 public:
     ship(int givensize){
-        blocks = new shipblock[givensize];
+        blocks = new block[givensize];
         isafloat = true;
     }
     
@@ -58,9 +59,11 @@ public:
                 this->isafloat = false;             //if its an engine,
                 break;
             case deck:
+                blocks[i].type = hitship;
                 blocks[i].stillstanding = false;
                 break;
             case artillery:
+                blocks[i].type = hitship;
                 blocks[i].stillstanding = false;
                 //NEED CODE TO TELL THE PERSON THEY LOSE A TURN
                 break;
@@ -79,16 +82,72 @@ public:
 
 class board{
 private:
-    ship *ships;                //array of ships to check how many are left
+    block *blocks;                //array of ships to check how many are left
     static int dimension;       //(so we can check if a point is on the board)
 public:
-    board(int givendimension) { //initialize to a matrix of zeros
-        **ships = new ship[givendimension][givendimension];
-        for (int i=0; i<N; ++i)
-            for (int j=0; j<(6-i); ++j) //save space by only creating one int for every possible route
-                ship[i][j] = 0;
+    // default constructor for a 5x5 board
+    board() {
+    	blocks = NULL;
+    	dimension = 5;
     }
-//functions: initialize, print, destroy?
+    // constructor with the input number as the dimension
+    board(int input) {
+    	blocks = NULL;
+		dimension = input;
+    }
+    // destructor
+    ~board() {
+    	delete blocks;
+    }
+
+    // function to assign ships onto board
+    /** I set this as a separate function because I feel like we need to first initialize the board
+     * to get the coordinates and then assign blocks according to the dimensions
+     * but we'll talk about this later :)
+     */
+    void assignShips(ship* locations) {
+    //	ship = locations;
+    }
+
+    // checks status of location
+    int checkLocation(int row, int column) {
+    	// 1 for not checked
+    	// 2 for hit water
+    	// 3 for hit ship
+    	// 4 for sunk ship
+    }
+
+    // print out the board to the screen
+    void printBoard(){
+                                    // for the first row, print out column information
+    	cout << "   ";
+        for(int j=0; j < dimension; j++) {
+            cout << " " << j+1 << " ";
+        }
+    	cout << endl;                                   // then, print row by row
+        for(int i=0; i < dimension; i++)
+        {
+    		cout << " " << (char)(i+65) << " ";			// print row character
+            for(int j=0; j; dimension, j++) {
+    			switch (this->checkLocation(i,j)) {
+    			case 1: 			// not checked
+    				cout << "[ ]";
+    				break;
+    			case 2: 			// hit water
+    				cout << "[X]";
+    				break;
+    			case 3: 			// hit ship
+    				cout << "[O]";
+    				break;
+    			case 4: 			// sunk ship
+    				cout << "[0]";
+    				break;
+    			}
+    		}
+    		cout << endl;		// change line at the end of the row
+    	}
+    }
+
 };
 
 
