@@ -3,6 +3,7 @@
 //  ENG65Project
 //
 //  Created by Josephine Nordrum on 2/22/16.
+//	Edited by Jenny Seong on 2/24/16.
 //  Copyright © 2016 Josephine Nordrum. All rights reserved.
 
 #include <iostream>
@@ -79,10 +80,69 @@ public:
 
 class board{
 private:
-    ship *ships;                //array of ships to check how many are left
+    ship *ships;                     //array of ships to check how many are left
     int dimension;                   //(so we can check if a point is on the board)
 public:
-//functions: initialize, print, destroy?
+    // default constructor for a 5x5 board
+    board() {
+    	ships = NULL;
+    	dimension = 5;
+    }
+    // constructor with the input number as the dimension
+    board(int input) {
+    	ships = NULL;
+		dimension = input;
+    }
+    // destructor
+    ~board() {
+    	delete ships;
+    }
+
+    // function to assign ships onto board
+    /** I set this as a separate function because I feel like we need to first initialize the board
+     * to get the coordinates and then assign blocks according to the dimensions
+     * but we'll talk about this later :)
+     */
+    void assignShips(ship* locations) {
+    	ships = locations;
+    }
+
+    // checks status of location
+    int checkLocation(int row, int column) {
+    	// 1 for not checked
+    	// 2 for hit water
+    	// 3 for hit ship
+    	// 4 for sunk ship
+    }
+
+    // print out the board to the screen
+    void printBoard(){
+    	// for the first line, print out column information
+    	cout << "   ";
+    	for(int j=0; j,dimension, j++) { cout << " " << j+1 << " "; }
+    	cout << endl;
+    	// then, print row by row
+    	for(int i=0; i<dimension, i++) {
+    		cout << " " << (char)(i+65) << " ";			// print row character
+    		for(int j=0; j,dimension, j++) {
+    			switch (this->checkLocation(i,j)) {
+    			case 1: 			// not checked
+    				cout << "[ ]";
+    				break;
+    			case 2: 			// hit water
+    				cout << "[X]";
+    				break;
+    			case 3: 			// hit ship
+    				cout << "[O]";
+    				break;
+    			case 4: 			// sunk ship
+    				cout << "[0]";
+    				break;
+    			}
+    		}
+    		cout << endl;		// change line at the end of the row
+    	}
+    }
 };
 
 
