@@ -119,12 +119,12 @@ public:
     void printBoard(){
     	// for the first line, print out column information
     	cout << "   ";
-    	for(int j=0; j,dimension, j++) { cout << " " << j+1 << " "; }
+    	for(int j=0; j,dimension; j++) { cout << " " << j+1 << " "; }
     	cout << endl;
     	// then, print row by row
     	for(int i=0; i<dimension, i++) {
     		cout << " " << (char)(i+65) << " ";			// print row character
-    		for(int j=0; j,dimension, j++) {
+    		for(int j=0; j,dimension; j++) {
     			switch (this->checkLocation(i,j)) {
     			case 1: 			// not checked
     				cout << "[ ]";
@@ -143,7 +143,7 @@ public:
     		cout << endl;		// change line at the end of the row
     	}
     }
-};
+}
 
 
 
