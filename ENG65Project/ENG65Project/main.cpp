@@ -24,15 +24,15 @@ public:
     }
 };
 
-enum blocktype {engine, deck, artillery}; //these are the type of shipblocks
+enum blocktype {water, engine, deck, artillery, hitwater, hitship, sunkship}; //these are the type of blocks
 enum orientation {vertical, horzontal};    //what is the ships orientation
 enum inputletter {A, B, C, D, E, F, G, H, I, J, K}; //these turn the input coordinates into numbers
 
 
-struct shipblock {
+struct block {
     blocktype type;            //enumeration of engine/deck/artillary room/ etc
-    bool stillstanding;             //enumeration of  float/sunk
-    coordinates b;             //coordinates of shipblock
+    bool stillstanding;           //enumeration of  float/sunk
+    coordinates b;             //coordinates of block
 };
 
 class ship {
@@ -40,12 +40,12 @@ private:
     string name;                //ships should have names
     int size;                   //how many squares does the ship take up?
     bool isafloat;              //is the boat afloat?
-    shipblock *blocks;          //array of the ship's components
+    block *blocks;          //array of the ship's components
     orientation  orient;        //determine if vertical or horizontal ship
     
 public:
-    ship(){
-        blocks = new shipblock[size];
+    ship(int givensize){
+        blocks = new block[givensize];
         isafloat = true;
     }
     
@@ -59,9 +59,11 @@ public:
                 this->isafloat = false;             //if its an engine,
                 break;
             case deck:
+                blocks[i].type = hitship;
                 blocks[i].stillstanding = false;
                 break;
             case artillery:
+                blocks[i].type = hitship;
                 blocks[i].stillstanding = false;
                 //NEED CODE TO TELL THE PERSON THEY LOSE A TURN
                 break;
@@ -80,22 +82,22 @@ public:
 
 class board{
 private:
-    ship *ships;                     //array of ships to check how many are left
-    int dimension;                   //(so we can check if a point is on the board)
+    block *blocks;                //array of ships to check how many are left
+    static int dimension;       //(so we can check if a point is on the board)
 public:
     // default constructor for a 5x5 board
     board() {
-    	ships = NULL;
+    	blocks = NULL;
     	dimension = 5;
     }
     // constructor with the input number as the dimension
     board(int input) {
-    	ships = NULL;
+    	blocks = NULL;
 		dimension = input;
     }
     // destructor
     ~board() {
-    	delete ships;
+    	delete blocks;
     }
 
     // function to assign ships onto board
@@ -104,7 +106,7 @@ public:
      * but we'll talk about this later :)
      */
     void assignShips(ship* locations) {
-    	ships = locations;
+    //	ship = locations;
     }
 
     // checks status of location
@@ -117,14 +119,25 @@ public:
 
     // print out the board to the screen
     void printBoard(){
-    	// for the first line, print out column information
+                                    // for the first row, print out column information
     	cout << "   ";
+<<<<<<< HEAD
     	for(int j=0; j,dimension; j++) { cout << " " << j+1 << " "; }
     	cout << endl;
     	// then, print row by row
     	for(int i=0; i<dimension, i++) {
     		cout << " " << (char)(i+65) << " ";			// print row character
     		for(int j=0; j,dimension; j++) {
+=======
+        for(int j=0; j < dimension; j++) {
+            cout << " " << j+1 << " ";
+        }
+    	cout << endl;                                   // then, print row by row
+        for(int i=0; i < dimension; i++)
+        {
+    		cout << " " << (char)(i+65) << " ";			// print row character
+            for(int j=0; j; dimension, j++) {
+>>>>>>> eaddb75becbf1cd775762bbb81873d03e0bd8a82
     			switch (this->checkLocation(i,j)) {
     			case 1: 			// not checked
     				cout << "[ ]";
@@ -143,7 +156,12 @@ public:
     		cout << endl;		// change line at the end of the row
     	}
     }
+<<<<<<< HEAD
 }
+=======
+
+};
+>>>>>>> eaddb75becbf1cd775762bbb81873d03e0bd8a82
 
 
 
