@@ -24,15 +24,33 @@ public:
     }
 };
 
-enum blocktype {water, engine, deck, artillery, hitwater, hitship, sunkship}; //these are the type of blocks
+enum blocktype {notchecked, hitwater, hitship, sunkship}; //these are the type of blocks
 enum orientation {vertical, horzontal};    //what is the ships orientation
 enum inputletter {A, B, C, D, E, F, G, H, I, J, K}; //these turn the input coordinates into numbers
 
 
-struct block {
+class block {
+private:
     blocktype type;            //enumeration of engine/deck/artillary room/ etc
     bool stillstanding;           //enumeration of  float/sunk
-    coordinates b;             //coordinates of block
+    coordinates b;              //coordinates of block
+public:
+    void printblock(void){
+        switch (type) {
+            case notchecked: 			// not checked
+                cout << "[ ]";
+                break;
+            case hitwater: 			// hit water
+                cout << "[X]";
+                break;
+            case hitship: 			// hit ship
+                cout << "[O]";
+                break;
+            case sunkship: 			// sunk ship
+                cout << "[0]";
+                break;
+
+    }
 };
 
 class ship {
@@ -128,20 +146,9 @@ public:
         for(int i=0; i < dimension; i++) {
     		cout << " " << (char)(i+65) << " ";			// print row character
             for(int j=0; j < dimension; j++) {
-    			switch (this->checkLocation(i,j)) {
-    			case 1: 			// not checked
-    				cout << "[ ]";
-    				break;
-    			case 2: 			// hit water
-    				cout << "[X]";
-    				break;
-    			case 3: 			// hit ship
-    				cout << "[O]";
-    				break;
-    			case 4: 			// sunk ship
-    				cout << "[0]";
-    				break;
-    			}
+                int index = (i-1)*dimension + j;
+                blocks[index].printblock();
+    			    			}
     		}
     		cout << endl;		// change line at the end of the row
     	}
