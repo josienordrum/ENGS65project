@@ -115,29 +115,19 @@ public:
     	// 2 for hit water
     	// 3 for hit ship
     	// 4 for sunk ship
+    	return 1;
     }
 
     // print out the board to the screen
     void printBoard(){
-                                    // for the first row, print out column information
+    	// for the first row, print out column information
     	cout << "   ";
-<<<<<<< HEAD
-    	for(int j=0; j,dimension; j++) { cout << " " << j+1 << " "; }
+    	for(int j=0; j < dimension; j++) { cout << " " << j+1 << " "; }
     	cout << endl;
     	// then, print row by row
-    	for(int i=0; i<dimension, i++) {
+        for(int i=0; i < dimension; i++) {
     		cout << " " << (char)(i+65) << " ";			// print row character
-    		for(int j=0; j,dimension; j++) {
-=======
-        for(int j=0; j < dimension; j++) {
-            cout << " " << j+1 << " ";
-        }
-    	cout << endl;                                   // then, print row by row
-        for(int i=0; i < dimension; i++)
-        {
-    		cout << " " << (char)(i+65) << " ";			// print row character
-            for(int j=0; j; dimension, j++) {
->>>>>>> eaddb75becbf1cd775762bbb81873d03e0bd8a82
+            for(int j=0; j < dimension; j++) {
     			switch (this->checkLocation(i,j)) {
     			case 1: 			// not checked
     				cout << "[ ]";
@@ -156,19 +146,32 @@ public:
     		cout << endl;		// change line at the end of the row
     	}
     }
-<<<<<<< HEAD
-}
-=======
-
 };
->>>>>>> eaddb75becbf1cd775762bbb81873d03e0bd8a82
 
+int main() {
+	int dim, comd;
+	char shipType;
+	string coord;
+	cout << "Welcome to BATTLESHIP." << endl;
+	cout << "Please enter the dimensions of the board: ";
+	cin >> dim;
+	board mainBoard(dim);
+	mainBoard.printBoard();
+	cout << "Choose a ship to place (5-block): " << endl;
+	cout << "(a) [O][O][O]     (b)                       (c) [O][O]" << endl;
+	cout << "       [O]            [O][O][O][O][0]           [O][O]" << endl;
+	cout << "       [0]                                         [0]" << endl;
+	cout << "Enter a, b or c >> ";
+	cin >> shipType;
+	cout << "Where would you like to place the engine room ([0]) of this ship?" << endl;
+	cin.ignore();
+	cout << "Enter row character + column number (e.g. A5) >> ";
+	getline(cin, coord);
+	// find blocks and set them to ships
+	mainBoard.printBoard();
+	cout << "Are you happy with the placement?" << endl;
+	cin.ignore();
+	cout << "(1) YES!   (2)   Rotate   (3) Move >> ";
+	cin >> comd;
 
-
-int main(int argc, const char * argv[]) {
-
-    
-    
-    return 0;
 }
-
