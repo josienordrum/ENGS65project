@@ -11,33 +11,25 @@
 using namespace std;
 
 
-class coordinates{
-private:
-    int x;
-    int y;
-public:
-    coordinates();
-    bool operator!=(coordinates l){
-        if (this->x == l.x && this->y == l.y){
-            return false; }
-        else return true;
-    }
-};
-
-enum blocktype {notchecked, hitwater, hitship, sunkship}; //these are the type of blocks
+enum blockstatus {notchecked, hitwater, hitship, sunkship}; //these are the block statuses
+enum blocktype  {water, engine, deck, artillery};           //these are the types of blocks
 enum orientation {vertical, horzontal};    //what is the ships orientation
 enum inputletter {A, B, C, D, E, F, G, H, I, J, K}; //these turn the input coordinates into numbers
 
 
+//int index = (b.x-1)*dimension + b.y;
+
 class block {
 private:
-    blocktype type;            //enumeration of engine/deck/artillary room/ etc
+    blocktype type;             //enumeration of engine/deck/artillary room/ etc
+    blockstatus status;
     bool stillstanding;           //enumeration of  float/sunk
-    coordinates b;              //coordinates of block
+    int boardindex;              //coordinates of block
+    int shipnumber;             //which ship does the block belong to
 public:
-    void printblock(void){
-        switch (type) {
-            case notchecked: 			// not checked
+    void printblock(void){          //POTENTIALLY override cout instead
+        switch (status) {
+            case notchecked: 		// not checked
                 cout << "[ ]";
                 break;
             case hitwater: 			// hit water
@@ -49,7 +41,6 @@ public:
             case sunkship: 			// sunk ship
                 cout << "[0]";
                 break;
-
     }
 };
 
@@ -57,43 +48,18 @@ class ship {
 private:
     string name;                //ships should have names
     int size;                   //how many squares does the ship take up?
-    bool isafloat;              //is the boat afloat?
-    block *blocks;          //array of the ship's components
-    orientation  orient;        //determine if vertical or horizontal ship
+    block *blocks;              //array of the ship's components
+    orientation orient;         //determine if vertical or horizontal ship
     
 public:
     ship(int givensize){
         blocks = new block[givensize];
-        isafloat = true;
     }
     
-    void processcoordinates(coordinates input){
-        int i = 0;
-        while(input != blocks[i].b){                //find which block matches the input coordinates
-            i++;
+    void sinkship(){
+        for(int i =0 ; i < size; i++){                //find which block matches the input coordinates
+            blocks[i].status = sunkship;
         }
-        switch (blocks[i].type) {                   //see what type of block it is
-            case engine:
-                this->isafloat = false;             //if its an engine,
-                break;
-            case deck:
-                blocks[i].type = hitship;
-                blocks[i].stillstanding = false;
-                break;
-            case artillery:
-                blocks[i].type = hitship;
-                blocks[i].stillstanding = false;
-                //NEED CODE TO TELL THE PERSON THEY LOSE A TURN
-                break;
-        }
-        int j = 0;
-        while (blocks[j].stillstanding == false){
-            j++;
-        }
-        if (j == size){
-            isafloat = false;
-        }
-    }
 };
     
 //functions: process coordinate (given a coordinate, find which ship block was hit and change its status… update status)
@@ -101,20 +67,19 @@ public:
 class board{
 private:
     block *blocks;                //array of ships to check how many are left
-    static int dimension;       //(so we can check if a point is on the board)
+    static int dimension;         //(so we can check if a point is on the board)
 public:
-    // default constructor for a 5x5 board
-    board() {
+    board() {                     // default constructor for a 5x5 board
     	blocks = NULL;
     	dimension = 5;
     }
-    // constructor with the input number as the dimension
-    board(int input) {
+
+    board(int input) {            // constructor with the input number as the dimension
     	blocks = NULL;
 		dimension = input;
     }
-    // destructor
-    ~board() {
+    
+    ~board() {                    // destructor
     	delete blocks;
     }
 
@@ -127,13 +92,25 @@ public:
     //	ship = locations;
     }
 
-    // checks status of location
-    int checkLocation(int row, int column) {
-    	// 1 for not checked
-    	// 2 for hit water
-    	// 3 for hit ship
-    	// 4 for sunk ship
-    	return 1;
+    void processcoordinates(int index) {
+        if (blocks[index].status != notchecked){
+            cout << "You've already checked that location! Try another spot:" << endl;
+            cin >> index;
+        }
+        switch (blocks[index].type) {
+            case engine:
+                                //if its an engine,
+                break;
+            case deck:
+                blocks[index].status = hitship;
+                break;
+            case artillery:
+                blocks[index].status = hitship;
+                //NEED CODE TO TELL THE PERSON THEY LOSE A TURN
+                break;
+            case water:
+                blocks[index].status = hitwater;
+        }
     }
 
     // print out the board to the screen
@@ -152,8 +129,10 @@ public:
     		}
     		cout << endl;		// change line at the end of the row
     	}
-    }
 };
+
+
+
 
 int main() {
 	int dim, comd;
@@ -180,5 +159,6 @@ int main() {
 	cin.ignore();
 	cout << "(1) YES!   (2)   Rotate   (3) Move >> ";
 	cin >> comd;
-
+    
+    return 0;
 }
