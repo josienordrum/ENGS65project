@@ -13,7 +13,6 @@ using namespace std;
 
 enum blockstatus {notchecked, hitwater, hitship, sunkship}; //these are the block statuses
 enum blocktype  {water, engine, deck, artillery};           //these are the types of blocks
-enum orientation {vertical, horzontal};    //what is the ships orientation
 enum inputletter {A, B, C, D, E, F, G, H, I, J, K}; //these turn the input coordinates into numbers
 
 
@@ -49,7 +48,6 @@ private:
     string name;                //ships should have names
     int size;                   //how many squares does the ship take up?
     block *blocks;              //array of the ship's components
-    orientation orient;         //determine if vertical or horizontal ship
     
 public:
     ship(int givensize){
@@ -67,6 +65,7 @@ public:
 class board{
 private:
     block *blocks;                //array of ships to check how many are left
+    ship *ships;
     static int dimension;         //(so we can check if a point is on the board)
 public:
     board() {                     // default constructor for a 5x5 board
@@ -92,14 +91,18 @@ public:
     //	ship = locations;
     }
 
-    void processcoordinates(int index) {
+    void processcoordinates(string stringin) {
+        char x = stringin[0];
+        int y = stringin[1];
+        int index = (x-1)*dimension + y;
+        
         if (blocks[index].status != notchecked){
             cout << "You've already checked that location! Try another spot:" << endl;
             cin >> index;
         }
         switch (blocks[index].type) {
             case engine:
-                                //if its an engine,
+                ships[blocks[index].shipnumber].sinkship();                //if its an engine,
                 break;
             case deck:
                 blocks[index].status = hitship;
@@ -159,6 +162,13 @@ int main() {
 	cin.ignore();
 	cout << "(1) YES!   (2)   Rotate   (3) Move >> ";
 	cin >> comd;
+    
+    //this will be a subfunction of player
+    cout<< "Enter a coordinate to test" <<endl;
+    string stringin;
+    cin >> stringin;
+    mainBoard.processcoordinates(stringin);
+    
     
     return 0;
 }
