@@ -5,7 +5,8 @@
  *      Author: jennyseong
  */
 
-#include <main.cpp>
+#include <iostream>
+using namespace std;
 
 /**
  * Enter ship size, prints out the types of ships with that number of blocks
@@ -186,3 +187,4 @@ char ShipOrientation(int size, char type) {
 		}
 	} while (error == 0);
 }
+
