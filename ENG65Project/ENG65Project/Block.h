@@ -8,6 +8,8 @@
 
 #ifndef Block_h
 #define Block_h
+#include <iostream>
+#include <functional>
 
 enum blockstatus {notchecked, hitwater, hitship, sunkship}; //these are the block statuses
 enum blocktype  {water, engine, deck, artillery};           //these are the types of blocks
@@ -16,19 +18,28 @@ enum inputletter {A, B, C, D, E, F, G, H, I, J, K}; //these turn the input coord
 
 class block {
 private:
+    
     blocktype type;             //enumeration of engine/deck/artillary room/ etc
-    blockstatus status;
-    bool stillstanding;           //enumeration of  float/sunk
+    blockstatus status;           //enumeration of  float/sunk
     int boardindex;              //coordinates of block
     int shipnumber;             //which ship does the block belong to
+    
 public:
-    block(){
+    block(){                        //constructor for unidefned block
         type = water;
         status = notchecked;
-    };
-    ~block(){
-        delete this;
-    };
+        boardindex = 0;
+        shipnumber = 0;
+    }
+    
+    block(blocktype given, int index, int number){ //constructor for defined block (still initiates to unchecked)
+        type = given;
+        status = notchecked;
+        boardindex = index;
+        shipnumber = number;
+    }
+    
+    ~block(){}
     
     void sink(void){
         status = sunkship;
@@ -37,19 +48,21 @@ public:
     void printblock(void){          //POTENTIALLY override cout instead
         switch (status) {
             case notchecked: 		// not checked
-                cout << "[ ]";
+                std::cout << "[ ]";
                 break;
             case hitwater: 			// hit water
-                cout << "[X]";
+                std::cout << "[X]";
                 break;
             case hitship: 			// hit ship
-                cout << "[O]";
+                std::cout << "[O]";
                 break;
             case sunkship: 			// sunk ship
-                cout << "[0]";
+                std::cout << "[0]";
                 break;
         }
-    };
+    }
+};
+
 
 
 #endif /* Block_h */
