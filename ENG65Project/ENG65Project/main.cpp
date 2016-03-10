@@ -11,6 +11,7 @@
 #include "Board.h"
 #include <iostream>
 #include <array>
+#include "PrintFns.h"
 
 using namespace std;
 
@@ -18,17 +19,25 @@ using namespace std;
 //int index = (b.x-1)*dimension + b.y;
 
 
-int main(int argv, char* argc[]) {
+int main(int argc, const char * argv[]) {
     
 	int dim, comd;
-	char shipType;
-    string coord;
+	//char shipType;
+    //string coord;
 	cout << "Welcome to BATTLESHIP." << endl;
 	cout << "Please enter the dimensions of the board: ";
 	cin >> dim;
-	board mainBoard(dim);
-	mainBoard.printBoard();
-	cout << "Choose a ship to place (5-block): " << endl;
+    cout << "please enter the size of ship you would like to place on it"<< endl;
+    cin >> comd;
+    char k, l;
+    int size = comd;
+    l = ShipType(size);
+    k = ShipOrientation(size, l);
+    cout<< "Returned char  "<< k << endl;
+    
+	//board mainBoard(dim);
+	//mainBoard.printBoard();
+	/*cout << "Choose a ship to place (5-block): " << endl;
 	cout << "(a) [O][O][O]     (b)                       (c) [O][O]" << endl;
 	cout << "       [O]            [O][O][O][O][0]           [O][O]" << endl;
 	cout << "       [0]                                         [0]" << endl;
@@ -49,7 +58,7 @@ int main(int argv, char* argc[]) {
     cout<< "Enter a coordinate to test" <<endl;
     string stringin;
     cin >> stringin;
-    mainBoard.processcoordinates(stringin);
+    mainBoard.processcoordinates(stringin);*/
     
     
     return 0;

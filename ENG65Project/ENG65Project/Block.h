@@ -18,12 +18,11 @@ enum inputletter {A, B, C, D, E, F, G, H, I, J, K}; //these turn the input coord
 
 class block {
 private:
-    
     blocktype type;             //enumeration of engine/deck/artillary room/ etc
     blockstatus status;           //enumeration of  float/sunk
     int boardindex;              //coordinates of block
     int shipnumber;             //which ship does the block belong to
-    
+
 public:
     block(){                        //constructor for unidefned block
         type = water;
@@ -44,6 +43,12 @@ public:
     void sink(void){
         status = sunkship;
     }
+    
+    int getshipnumber(void) {return shipnumber;}        //these functions return the values of private members
+    blockstatus getstatus(void){ return status; }
+    blocktype gettype(void) { return type; }
+    void setstatus( blockstatus stat){ status = stat; }
+    
     
     void printblock(void){          //POTENTIALLY override cout instead
         switch (status) {
