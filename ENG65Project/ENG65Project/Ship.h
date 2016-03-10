@@ -13,7 +13,7 @@
 
 class ship {
 private:
-    string name;                //ships should have names
+    std::string name;                //ships should have names
     int size;                   //how many squares does the ship take up?
     block *blocks;              //array of the ship's components
     
@@ -22,14 +22,23 @@ public:
         blocks = new block[givensize];
         size = givensize;
     }
+    ship(){
+        blocks = new block[2];
+        size = 2;
+    }
+    
     ~ship(){
-        delete blocks;
+        for( int i =0; i < size; i++){
+            blocks[i].~block();
+        }
     }
     void sinkship(){
         for(int i =0 ; i < size; i++){                //find which block matches the input coordinates
             blocks[i].sink();
         }
-    };
+    }
+    
+};
 
 
 #endif /* Ship_h */
