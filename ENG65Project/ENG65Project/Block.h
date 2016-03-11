@@ -48,7 +48,7 @@ public:
     blockstatus getstatus(void){ return status; }
     blocktype gettype(void) { return type; }
     void setstatus( blockstatus stat){ status = stat; }
-    
+    void settype( blocktype stat){ type = stat; }
     
     void printblock(void){          //POTENTIALLY override cout instead
         switch (status) {

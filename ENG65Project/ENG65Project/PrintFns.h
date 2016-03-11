@@ -98,9 +98,11 @@ char ShipType(int size) {
  * Prints out possible orientations, asks for input
  * Returns the input as the orientation of the ship as a character
  */
-char ShipOrientation(int size, char type) {
+std::string ShipOrientation(int size, char type) {
     char input;					// variable to store input
     int error = 0;				// error tracking variable
+    std::string toreturn;
+    toreturn[0] = size; toreturn[1] = type;
     
     cout << "Which orientation?" << endl;
     
@@ -188,7 +190,7 @@ char ShipOrientation(int size, char type) {
     // if there was an error in printing the ship type options, print error message for debugging
     if (error == 1) {
         cout << "There's something wrong!";
-        return 'x';
+        return "xxx";
     }
     
     // if there was no error, ask for input and return orientation as character
@@ -196,16 +198,16 @@ char ShipOrientation(int size, char type) {
     do {
         cin >> input;
         cin.ignore();
-        if (input == 'a' || input == 'A') { return 'a'; }
-        else if (input == 'b' || input == 'B') { return 'b'; }
-        else if (input == 'c' || input == 'C') { return 'c'; }
-        else if (input == 'd' || input == 'D') { return 'd'; }
+        if      (input == 'a' || input == 'A') { toreturn[2] = 'a'; return toreturn;}
+        else if (input == 'b' || input == 'B') { toreturn[2] = 'b'; return toreturn;}
+        else if (input == 'c' || input == 'C') { toreturn[2] = 'c'; return toreturn;}
+        else if (input == 'd' || input == 'D') { toreturn[2] = 'd'; return toreturn;}
         else {
             cout << "Invalid character. Please enter a, b, c or d >>";
         }
         
     } while (error == 0);
-    return 'o';
+    return "ooo";
 }
 
 
