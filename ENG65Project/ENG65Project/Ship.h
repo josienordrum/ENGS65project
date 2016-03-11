@@ -18,37 +18,13 @@ private:
     int *blockindicies;              //array of the ship's components
     
 public:
-    ship(int givensize, std::string name){
-        blockindicies = new int[givensize];
-        for(int i = 0; i < givensize; i++){
-            blockindicies[i] = 10000;
-        }
-        size = givensize;
-        name = name;
-    }
-    ship(){
-        blockindicies = new int[2];
-        for(int i = 0; i < 2; i++){
-            blockindicies[i] = 10000;
-        }
-        size = 2;
-        name = "Default Two";
-    }
     
-    ~ship(){
-        delete[] blockindicies;
-    }
-    
-    int* getblocks(){return blockindicies; }
-    int getsizes(){return size;}
-    
-    void setblock( int index){
-        int i =0;
-        while (blockindicies[i] != 10000){
-            i++;
-        }
-        blockindicies[i] = index;
-    }
+    ship(int givensize, std::string name);
+    ship();
+    ~ship();
+    int* getblocks();               //getters and setters for private members of block
+    int  getsizes();
+    void setblock( int index);
     
 };
 

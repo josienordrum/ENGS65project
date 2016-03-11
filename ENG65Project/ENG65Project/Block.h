@@ -24,57 +24,23 @@ private:
     int shipnumber;             //which ship does the block belong to
 
 public:
-    block(){                        //constructor for unidefned block
-        type = water;
-        status = notchecked;
-        boardindex = 0;
-        shipnumber = 0;
-    }
+    block();
+    block(blocktype given, int index, int number);
+    ~block();
     
-    block(blocktype given, int index, int number){  //constructor for defined block (still initiates to unchecked)
-        type = given;
-        status = notchecked;
-        boardindex = index;
-        shipnumber = number;
-    }
+    void operator = (block other);
+    void sink(void);
     
-    ~block(){}
+    int getshipnumber(void);     //these functions return the values of private members
+    blockstatus getstatus(void);
+    blocktype gettype(void);
+    void setstatus( blockstatus stat);
+    void settype( blocktype stat);
+    void setshipno(int shipno);
+    void setindex(int index);
+    int getindex(void);
     
-    void operator = (block other){
-        type = other.type;
-        status = other.status;
-        boardindex = other.boardindex;
-        shipnumber = other.shipnumber;
-    }
-    void sink(void){
-        status = sunkship;
-    }
-    
-    int getshipnumber(void) {return shipnumber;}        //these functions return the values of private members
-    blockstatus getstatus(void){ return status; }
-    blocktype gettype(void) { return type; }
-    void setstatus( blockstatus stat){ status = stat; }
-    void settype( blocktype stat){ type = stat;}
-    void setshipno(int shipno){shipnumber = shipno;}
-    void setindex(int index) {boardindex = index;}
-    int getindex(void) {return boardindex;}
-    
-    void printblock(void){          //POTENTIALLY override cout instead
-        switch (status) {
-            case notchecked: 		// not checked
-                std::cout << "[ ]";
-                break;
-            case hitwater: 			// hit water
-                std::cout << "[X]";
-                break;
-            case hitship: 			// hit ship
-                std::cout << "[O]";
-                break;
-            case sunkship: 			// sunk ship
-                std::cout << "[0]";
-                break;
-        }
-    }
+    void printblock(void);
 };
 
 
