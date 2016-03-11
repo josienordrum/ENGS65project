@@ -21,13 +21,13 @@ private:
 public:
     board() {                     // default constructor for a 5x5 board
         blocks = new block[25];
-        ships = NULL;
+        ships = new ship[2];
         dimension = 5;
     }
     
     board(int input) {            // constructor with the input number as the dimension
         blocks = new block[input*input];
-        ships = new ship[3];
+        ships = new ship[input/3];
         dimension = input;
     }
     
@@ -44,7 +44,7 @@ public:
     }
     
     void processcoordinates(std::string stringin) {
-        
+
         int index = converttoindex(stringin);
         
         if (blocks[index].getstatus() != notchecked){
@@ -53,6 +53,7 @@ public:
             std::cin >> input;
             processcoordinates(input);
         }
+        
         switch (blocks[index].gettype()) {
             case engine:
                 ships[blocks[index].getshipnumber()].sinkship();                //if its an engine, sink the whole ship
@@ -96,12 +97,16 @@ public:
         int x = input[0] - 65;
         int size = getdimension();
         int index = x*size + y;
-                std::cout << "index is  " << index << std::endl;
+        
         if (index >= size*size){
             std::cout << "That coordinate is not on the board!" << std::endl;
         }
         return index;
     }
+    
+    void PlaceShips(std::string shiptype, std::string location, int shipno);
+    std::string ShipOrientation(int size, char type);
+    char ShipType(int size);
 };
 
 

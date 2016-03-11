@@ -12,6 +12,7 @@
 #include <iostream>
 #include <array>
 #include "PrintFns.h"
+#include "PlaceShips.h"
 
 using namespace std;
 
@@ -28,15 +29,14 @@ int main(int argc, const char * argv[]) {
 	cout << "Please enter the dimensions of the board: ";
 	cin >> dim;
     board talus(dim); talus.printBoard();
-    cout << talus.converttoindex("C2");
     //board geek; geek.printBoard();
     cout << "please enter the size of ship you would like to place on it"<< endl;
     cin >> comd;
-    char k, l;
     int size = comd;
-    l = ShipType(size);
-    k = ShipOrientation(size, l);
-    cout<< "Returned char  "<< k << endl;
+    talus.PlaceShips(talus.ShipOrientation(size, talus.ShipType(size)), "C3", 1);
+    talus.processcoordinates("C3");
+    talus.printBoard();
+
     
     
 	//board mainBoard(dim);

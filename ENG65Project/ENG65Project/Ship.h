@@ -34,9 +34,29 @@ public:
         }
     }
     void sinkship(){
+        std::cout<< "we're sinking!!" << std::endl;
         for(int i =0 ; i < size; i++){                //find which block matches the input coordinates
             blocks[i].sink();
         }
+    }
+    
+    void reallocateblocks(int shipsize){
+        size = shipsize;
+        blocks = new block[shipsize];
+    }
+    
+    void setblocks(block addme) {
+        int i = 0;
+        while (blocks[i].gettype() != water){
+            i++;
+        }
+        blocks[i] = addme;
+    }
+    
+    void operator=(ship other){
+        size = other.size;
+        
+        
     }
     
 };

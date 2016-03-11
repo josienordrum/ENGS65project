@@ -23,7 +23,7 @@ using namespace std;
  * Enter ship size, prints out the types of ships with that number of blocks
  * Returns the charater of the ship to choose orientation
  */
-char ShipType(int size) {
+char board::ShipType(int size) {
     char input;				// variable to store input
     int error = 0;			// error variable for looping for a valid input
     
@@ -98,7 +98,7 @@ char ShipType(int size) {
  * Prints out possible orientations, asks for input
  * Returns the input as the orientation of the ship as a character
  */
-std::string ShipOrientation(int size, char type) {
+std::string board::ShipOrientation(int size, char type) {
     char input;					// variable to store input
     int error = 0;				// error tracking variable
     std::string toreturn;

@@ -16,31 +16,40 @@
 #include "PrintFns.h"
 
 
-void board::PlaceShips(std::string shiptype, std::string location){
+void board::PlaceShips(std::string shiptype, std::string location, int shipno){
     //translate desired location into indexed location on board
     int index = converttoindex(location);
-    int shipsize = shiptype[0] - 48;
+    int shipsize = shiptype[0];
     char type = shiptype[1];
     char orient = shiptype[2];
-    
+   
+    ships[shipno] = new ship(shipsize);
+    blocks[index].settype(engine);
+    blocks[index].setshipno(shipno);
+    ships[shipno].setblocks(blocks[index]);
     switch (shipsize){
     case 2:
+            int index2;
             switch (orient){
                 case 'a':
-                    blocks[index].settype(engine);
-                    blocks[index-1].settype(deck);
+                    index2 = index-1;
                     break;
                 case 'b':
+                    index2 = index-1;
                     break;
                 case 'c':
+                    index2 = index + dimension;
                     break;
                 case 'd':
+                    index2 = index - dimension;
                     break;
                 default:
-                    std::cout << "Reached default option 2" <<std::endl;
+                    std::cout << "ERROR: Reached default option 2" <<std::endl;
                     break;
-                    
             }
+                blocks[index2].settype(deck);
+                blocks[index2].setshipno(shipno);
+                ships[shipno].setblocks(blocks[index2]);
     break;
     case 3:
             switch (type){

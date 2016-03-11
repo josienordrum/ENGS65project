@@ -40,7 +40,14 @@ public:
     
     ~block(){}
     
+    void operator = (block other){
+        type = other.type;
+        status = other.status;
+        boardindex = other.boardindex;
+        shipnumber = other.shipnumber;
+    }
     void sink(void){
+        std::cout<< "I sink!" <<std::endl;
         status = sunkship;
     }
     
@@ -48,7 +55,8 @@ public:
     blockstatus getstatus(void){ return status; }
     blocktype gettype(void) { return type; }
     void setstatus( blockstatus stat){ status = stat; }
-    void settype( blocktype stat){ type = stat; }
+    void settype( blocktype stat){ type = stat;}
+    void setshipno(int shipno){shipnumber = shipno;}
     
     void printblock(void){          //POTENTIALLY override cout instead
         switch (status) {
