@@ -33,7 +33,6 @@ public:
         ships = new ship[input/3];
         for (int i =0; i < input/3; i++){
             int k = shipsizes[i]-48;
-            std::cout << "DEBUG K == " << k << std::endl;
             ships[i] = ship(k, "The Destroyer");
             i++;
         }
@@ -55,6 +54,7 @@ public:
     void processcoordinates(std::string stringin) {
 
         int index = converttoindex(stringin);
+        int temp;
         
         if (blocks[index].getstatus() != notchecked){
             std::cout << "You've already checked that location! Try another spot" << std::endl;
@@ -64,8 +64,10 @@ public:
         }
         
         switch (blocks[index].gettype()) {
+                
             case engine:
-                ships[blocks[index].getshipnumber()].sinkship();                //if its an engine, sink the whole ship
+                temp = blocks[index].getshipnumber();                //if its an engine, sink the whole ship
+                sinkship(temp);
                 break;
             case deck:
                 blocks[index].setstatus(hitship);
@@ -79,10 +81,16 @@ public:
         }
     }
     
+    void sinkship(int number){
+        int *tosink;
+        tosink = ships[number].getblocks();
+        int size = ships[number].getsizes();
+        for (int i = 0; i<size; i++){
+            blocks[tosink[i]].sink();
+        }
+    }
     
     void printBoard(){
-        
-        ships[0].debug();
         
         // for the first row, print out column information
         std::cout << "   ";                      //// print out the board to the screen

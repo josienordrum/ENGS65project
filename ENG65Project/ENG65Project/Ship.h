@@ -15,47 +15,40 @@ class ship {
 private:
     std::string name;                //ships should have names
     int size;                   //how many squares does the ship take up?
-    block *blocks;              //array of the ship's components
+    int *blockindicies;              //array of the ship's components
     
 public:
     ship(int givensize, std::string name){
-        blocks = new block[givensize];
+        blockindicies = new int[givensize];
+        for(int i = 0; i < givensize; i++){
+            blockindicies[i] = 10000;
+        }
         size = givensize;
         name = name;
     }
     ship(){
-        blocks = new block[2];
+        blockindicies = new int[2];
+        for(int i = 0; i < 2; i++){
+            blockindicies[i] = 10000;
+        }
         size = 2;
-        name = "Ship 007";
+        name = "Default Two";
     }
     
     ~ship(){
-        for( int i =0; i < size; i++){
-            blocks[i].~block();
-        }
-    }
-    void sinkship(){
-        for(int i =0 ; i < size; i++){                //find which block matches the input coordinates
-            blocks[i].sink();
-        }
+        delete[] blockindicies;
     }
     
-    void setblocks(block addme) {
-        int i = 0;
-        while (blocks[i].gettype() != water){
+    int* getblocks(){return blockindicies; }
+    int getsizes(){return size;}
+    
+    void setblock( int index){
+        int i =0;
+        while (blockindicies[i] != 10000){
             i++;
-            std::cout << "I have a block of type " << blocks[i].gettype() << "its boardindex is" << blocks[i].getindex();
         }
-        blocks[i] = addme;
+        blockindicies[i] = index;
     }
-    
-    void debug(void){
-        std::cout << "hello! my name is " << name << ", and my size is"<< size <<"!  My blocks are as follow:" << std::endl;
-        for(int i =0; i< size; i++){
-          std::cout << "I have a block of type " << blocks[i].gettype() << "its boardindex is" << blocks[i].getindex();
-        }
-    }
-    
     
 };
 

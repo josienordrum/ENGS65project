@@ -27,7 +27,7 @@ void board::PlaceShips(std::string shiptype, std::string location, int shipno){
     //ships[shipno] = new ship(shipsize);
     blocks[index].settype(engine);
     blocks[index].setshipno(shipno);
-    ships[shipno].setblocks(blocks[index]);
+    ships[shipno].setblock(index);
     switch (shipsize){
     case 2:
             switch (orient){
@@ -49,7 +49,7 @@ void board::PlaceShips(std::string shiptype, std::string location, int shipno){
             }
                 blocks[index2].settype(deck);
                 blocks[index2].setshipno(shipno);
-                ships[shipno].setblocks(blocks[index2]);
+                ships[shipno].setblock(index2);
     break;
     case 3:
             switch (type){
