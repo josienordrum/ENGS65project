@@ -27,6 +27,9 @@ int main(int argc, const char * argv[]) {
 	cout << "Welcome to BATTLESHIP." << endl;
 	cout << "Please enter the dimensions of the board: ";
 	cin >> dim;
+    board talus(dim); talus.printBoard();
+    cout << talus.converttoindex("C2");
+    //board geek; geek.printBoard();
     cout << "please enter the size of ship you would like to place on it"<< endl;
     cin >> comd;
     char k, l;
@@ -35,14 +38,10 @@ int main(int argc, const char * argv[]) {
     k = ShipOrientation(size, l);
     cout<< "Returned char  "<< k << endl;
     
+    
 	//board mainBoard(dim);
 	//mainBoard.printBoard();
-	/*cout << "Choose a ship to place (5-block): " << endl;
-	cout << "(a) [O][O][O]     (b)                       (c) [O][O]" << endl;
-	cout << "       [O]            [O][O][O][O][0]           [O][O]" << endl;
-	cout << "       [0]                                         [0]" << endl;
-	cout << "Enter a, b or c >> ";
-	cin >> shipType;
+/*
 	cout << "Where would you like to place the engine room ([0]) of this ship?" << endl;
 	cin.ignore();
 	cout << "Enter row character + column number (e.g. A5) >> ";

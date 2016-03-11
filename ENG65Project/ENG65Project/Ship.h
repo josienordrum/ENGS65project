@@ -25,6 +25,7 @@ public:
     ship(){
         blocks = new block[2];
         size = 2;
+        name = "Ship 007";
     }
     
     ~ship(){

@@ -31,7 +31,7 @@ public:
         shipnumber = 0;
     }
     
-    block(blocktype given, int index, int number){ //constructor for defined block (still initiates to unchecked)
+    block(blocktype given, int index, int number){  //constructor for defined block (still initiates to unchecked)
         type = given;
         status = notchecked;
         boardindex = index;

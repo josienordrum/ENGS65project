@@ -106,10 +106,10 @@ char ShipOrientation(int size, char type) {
     
     // print out options for the 2-block ship
     switch (size){
-        case 2: {
+        case 2:
             cout << "(a)  [O][0]     (b)  [0][O]     (c)  [0]     (d)  [O]" << endl;
             cout << "                                     [O]          [0]" << endl;
-        }
+            break;
             
             // print out options for the 2 types of 3-block ships
         case 3:
@@ -126,6 +126,7 @@ char ShipOrientation(int size, char type) {
                 default:
                     cout << "invalid ship model" << endl;
                     error = 1;
+                    break;
             }
             break;
             // print out options for the 3 types of 4-block ships
