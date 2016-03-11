@@ -22,18 +22,21 @@ using namespace std;
 
 int main(int argc, const char * argv[]) {
     
-	int dim, comd;
+    int dim, comd;
+    string shipsizes;
 	//char shipType;
     //string coord;
 	cout << "Welcome to BATTLESHIP." << endl;
 	cout << "Please enter the dimensions of the board: ";
 	cin >> dim;
-    board talus(dim); talus.printBoard();
+    cout << "OK! You will have " << dim/3 << " ships! What sizes would you like them to be?" << endl;
+    cin >> shipsizes;
+    board talus(dim, shipsizes); talus.printBoard();
     //board geek; geek.printBoard();
     cout << "please enter the size of ship you would like to place on it"<< endl;
     cin >> comd;
     int size = comd;
-    talus.PlaceShips(talus.ShipOrientation(size, talus.ShipType(size)), "C3", 1);
+    talus.PlaceShips(talus.ShipOrientation(size, talus.ShipType(size)), "C3", 0);
     talus.processcoordinates("C3");
     talus.printBoard();
 
@@ -52,13 +55,7 @@ int main(int argc, const char * argv[]) {
 	cin.ignore();
 	cout << "(1) YES!   (2)   Rotate   (3) Move >> ";
 	cin >> comd;
-    
-    //this will be a subfunction of player
-    cout<< "Enter a coordinate to test" <<endl;
-    string stringin;
-    cin >> stringin;
-    mainBoard.processcoordinates(stringin);*/
-    
+ */
     
     return 0;
 };

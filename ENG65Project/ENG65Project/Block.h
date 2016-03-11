@@ -47,7 +47,6 @@ public:
         shipnumber = other.shipnumber;
     }
     void sink(void){
-        std::cout<< "I sink!" <<std::endl;
         status = sunkship;
     }
     
@@ -57,6 +56,8 @@ public:
     void setstatus( blockstatus stat){ status = stat; }
     void settype( blocktype stat){ type = stat;}
     void setshipno(int shipno){shipnumber = shipno;}
+    void setindex(int index) {boardindex = index;}
+    int getindex(void) {return boardindex;}
     
     void printblock(void){          //POTENTIALLY override cout instead
         switch (status) {

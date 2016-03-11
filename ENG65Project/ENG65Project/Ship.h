@@ -18,9 +18,10 @@ private:
     block *blocks;              //array of the ship's components
     
 public:
-    ship(int givensize){
+    ship(int givensize, std::string name){
         blocks = new block[givensize];
         size = givensize;
+        name = name;
     }
     ship(){
         blocks = new block[2];
@@ -34,30 +35,27 @@ public:
         }
     }
     void sinkship(){
-        std::cout<< "we're sinking!!" << std::endl;
         for(int i =0 ; i < size; i++){                //find which block matches the input coordinates
             blocks[i].sink();
         }
-    }
-    
-    void reallocateblocks(int shipsize){
-        size = shipsize;
-        blocks = new block[shipsize];
     }
     
     void setblocks(block addme) {
         int i = 0;
         while (blocks[i].gettype() != water){
             i++;
+            std::cout << "I have a block of type " << blocks[i].gettype() << "its boardindex is" << blocks[i].getindex();
         }
         blocks[i] = addme;
     }
     
-    void operator=(ship other){
-        size = other.size;
-        
-        
+    void debug(void){
+        std::cout << "hello! my name is " << name << ", and my size is"<< size <<"!  My blocks are as follow:" << std::endl;
+        for(int i =0; i< size; i++){
+          std::cout << "I have a block of type " << blocks[i].gettype() << "its boardindex is" << blocks[i].getindex();
+        }
     }
+    
     
 };
 

@@ -25,9 +25,18 @@ public:
         dimension = 5;
     }
     
-    board(int input) {            // constructor with the input number as the dimension
+    board(int input, std::string shipsizes) {            // constructor with the input number as the dimension
         blocks = new block[input*input];
+        for(int j =0; j < input*input; j++){
+            blocks[j].setindex(j);
+        }
         ships = new ship[input/3];
+        for (int i =0; i < input/3; i++){
+            int k = shipsizes[i]-48;
+            std::cout << "DEBUG K == " << k << std::endl;
+            ships[i] = ship(k, "The Destroyer");
+            i++;
+        }
         dimension = input;
     }
     
@@ -72,6 +81,9 @@ public:
     
     
     void printBoard(){
+        
+        ships[0].debug();
+        
         // for the first row, print out column information
         std::cout << "   ";                      //// print out the board to the screen
         for(int j=0; j < dimension; j++) {
