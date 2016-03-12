@@ -12,6 +12,7 @@
 
 #include "Block.h"
 #include <string>
+#include <array>
 using namespace std;
 
 class ship {
@@ -26,7 +27,7 @@ public:
     ~ship();										// destructor
     int* getBlocks();								// returns block array
     int  getSize();									// returns size of ship
-    void setBlock(int index[]);						// set blocks for ship
+    void setBlock(int* inputIndex);				// set blocks for ship
 };
 
 
