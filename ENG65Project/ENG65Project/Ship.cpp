@@ -34,7 +34,7 @@ ship::~ship(){
 int* ship::getblocks(){return blockindicies; }
 int ship::getsizes(){return size;}
 
-void ship::setblock( int index){
+void ship::setblock(int index){
     int i =0;
     while (blockindicies[i] != 10000){
         i++;
