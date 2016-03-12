@@ -196,11 +196,13 @@ char ShipOrientation(int size, char type) {
 	do {
 		cin >> input;
 		cin.ignore();
-		if (input == 'a' || input == 'A') { return 'a'; }
+		if      (input == 'a' || input == 'A') { return 'a'; }
 		else if (input == 'b' || input == 'B') { return 'b'; }
 		else if (input == 'c' || input == 'C') { return 'c'; }
 		else if (input == 'd' || input == 'D') { return 'd'; }
 		else { cout << "Invalid character. Please enter a, b, c or d >>"; }
 	} while (error == 0);
     
+    cout << "ERROR: invalid ship" << endl;
+    return 'x';             //if do-while loop is skipped, return dummy char 'x' & alert of error
 }

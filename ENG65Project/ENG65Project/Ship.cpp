@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include "Block.h"
 #include "Ship.h"
+#include <array>
 
 // Constructor with known size and name
 ship::ship(int givensize, string nInput){

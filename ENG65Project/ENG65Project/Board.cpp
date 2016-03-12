@@ -121,8 +121,9 @@ int board::convertIndex(string input) {
 	int index = x*dimension + y;
 	// if input coordinates are not included in board, send error message
 	if (index >= dimension*dimension){
-		cout << "That coordinate is not on the board!" << endl;
-		return NULL;
+		cout << "That coordinate is not on the board! Please try again:" << endl;
+        cin >> input;
+        convertIndex(input);
 	}
 	return index;
 }
@@ -144,13 +145,7 @@ void board::PlaceShips(int size, int shipno) {
 	cin >> input;
 	cin.ignore();
 	index[0] = convertIndex(input);
-
-	// if input coordinate is not valid, print error message
-	if (index[0] == NULL) {
-		cout << "We cannot place the ship in that location." << endl;
-		return;
-	}
-
+    
 	//ships[shipno] = new ship(shipsize);
 
 	// enter engine information on block with entered coordinate
