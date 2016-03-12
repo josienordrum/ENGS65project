@@ -43,17 +43,9 @@ int* ship::getBlocks() { return blockIndices; }
 int ship::getSize() { return size; }
 
 // Set the block indices for the ship
-<<<<<<< HEAD
 void ship::setBlock(int* inputIndex){
 	if (sizeof(inputIndex) == sizeof(blockIndices)) {			// check if the input indices are the same size
 		for(int i = 0; i < size; i++) { blockIndices[i] = inputIndex[i]; }
-=======
-void ship::setBlock(int index[]){
-	if (sizeof(*index) == sizeof(*blockIndices)) {			// check if the input indices are the same size
-		for(int i = 0; i < size; i++) {
-            blockIndices[i] = index[i];
-        }
->>>>>>> origin/master
 	}
 	else { cout << "The array size doesn't match!" << endl; }
 }
