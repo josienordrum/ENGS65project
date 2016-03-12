@@ -77,9 +77,9 @@ void block::setShipNum(int shipNo){ shipNum = shipNo; }
  * player: 0 for user, 1 for opponent
  * (POSSIBLY OVERRIDE COUT)
  */
-void block::printBlock(int player){
+void block::printBlock(int gamesetup){
 	// for the opponent's board (Check status of attacks)
-	if (player == 1) {
+	if (gamesetup == 1) {
 		switch (status) {
 			case notchecked: 		// not checked
 				cout << "[ ]";

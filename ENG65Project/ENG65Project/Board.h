@@ -26,7 +26,7 @@ public:
 	void assignShips(ship* locations);					// assign ships to its locations
 	void processCoordinates(string stringin);			// analyze input location
 	void sinkShip(int number);							// sink entire ship with input ship reference number
-	void printBoard(int player);						// print out the whole board to system
+	void printBoard(int gamesetup);						// print out the whole board to system
 	int convertIndex(string input);						// convert input coordinate to block index number
 	void PlaceShips(int size, int shipno);				// place ships on board
 };

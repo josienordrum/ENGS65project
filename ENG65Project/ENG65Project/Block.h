@@ -43,7 +43,7 @@ public:
     void setIndex(int index);							// set the boardIndex
     void setShipNum(int shipNum);						// set the ship number
     
-    void printBlock(int player);						// prints block to system according to its status
+    void printBlock(int gamesetup);						// prints block to system according to its status
 };
 
 #endif /* Block_h */

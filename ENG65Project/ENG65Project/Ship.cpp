@@ -13,11 +13,11 @@
 
 // Constructor with known size and name
 ship::ship(int givensize, string nInput){
+        size = givensize;
     blockIndices = new int[givensize];			// allocates space for the number of blocks
     for(int i = 0; i < givensize; i++){
         blockIndices[i] = 10000;				// set block index to 10000 as default--will be set later when player puts ship on board
     }
-    size = givensize;
     name = nInput;
 }
 
@@ -43,9 +43,18 @@ int* ship::getBlocks() { return blockIndices; }
 int ship::getSize() { return size; }
 
 // Set the block indices for the ship
-void ship::setBlock(int* inputIndex){
-	if (sizeof(inputIndex) == sizeof(blockIndices)) {			// check if the input indices are the same size
-		for(int i = 0; i < size; i++) { blockIndices[i] = inputIndex[i]; }
+/*void ship::setBlock(int* inputIndex){
+	if (sizeof(*inputIndex) == sizeof(*blockIndices)) {			// check if the input indices are the same size
+		for(int i = 0; i < size; i++) {blockIndices[i] = inputIndex[i]; }
 	}
 	else { cout << "The array size doesn't match!" << endl; }
+}*/
+
+void ship::setBlock(int* inputIndex){
+    int i = 0;
+    while (blockIndices[i] != 10000){
+        i++;
+    }
+    blockIndices[i] = inputIndex[i];
 }
+
