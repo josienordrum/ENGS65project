@@ -3,6 +3,7 @@
 //  ENG65Project
 //
 //  Created by Josephine Nordrum on 3/11/16.
+//  Edited by Jenny Seong on 3/12/16.
 //  Copyright © 2016 Josephine Nordrum. All rights reserved.
 //
 
@@ -201,9 +202,5 @@ char ShipOrientation(int size, char type) {
 		else if (input == 'd' || input == 'D') { return 'd'; }
 		else { cout << "Invalid character. Please enter a, b, c or d >>"; }
 	} while (error == 0);
-<<<<<<< HEAD
 	return '0';
-=======
-    
->>>>>>> 327e19a7861572d109c1225c36f2479d7b47c05d
 }

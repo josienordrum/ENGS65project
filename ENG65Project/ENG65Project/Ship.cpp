@@ -39,7 +39,6 @@ ship::~ship(){
 // Return array of block indices for the ship
 int* ship::getBlocks() { return blockIndices; }
 
-
 // Return size of ship
 int ship::getSize() { return size; }
 
