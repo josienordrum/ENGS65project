@@ -24,7 +24,7 @@ public:
 
 	int getDimension();									// returns the dimensions of the board
 	void assignShips(ship* locations);					// assign ships to its locations
-	void processCoordinates(string stringin);			// analyze input location
+	int processCoordinates(string stringin);			// analyze input location
 	void sinkShip(int number);							// sink entire ship with input ship reference number
 	void printBoard(int gamesetup);						// print out the whole board to system
 	int convertIndex(string input);						// convert input coordinate to block index number

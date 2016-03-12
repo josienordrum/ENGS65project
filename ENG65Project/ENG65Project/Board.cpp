@@ -23,15 +23,19 @@ board::board() {
 // constructor with the input number as the dimension
 board::board(int input, string shipsizes) {
 	blocks = new block[input*input];
+    
 	for(int j =0; j < input*input; j++){
 		blocks[j].setIndex(j);
 	}
-	ships = new ship[input/3];
-	for (int i =0; i < input/3; i++){
+    
+    ships = new ship[input/3];
+    int size = input/3;
+    
+	for (int i =0; i < size; i++){
 		int k = shipsizes[i]-48;
 		ships[i] = ship(k, "The Destroyer");
-		i++;
 	}
+    
 	dimension = input;
 }
 
@@ -55,10 +59,13 @@ void board::assignShips(ship* locations) {
  * Analyze the input coordinate and change status
  * (The attack aspect of the game)
  */
-void board::processCoordinates(string stringin) {
+int board::processCoordinates(string stringin) {
 	int index = convertIndex(stringin);
 	int temp;
-
+    int iwin = 0;
+    int k = 0;
+    int l =0;
+    
 	if (blocks[index].getStatus() != notchecked){
 		cout << "You've already checked that location! Try another spot" << endl;
 		string input;
@@ -69,19 +76,42 @@ void board::processCoordinates(string stringin) {
 	switch (blocks[index].getType()) {
 		case engine:
 			temp = blocks[index].getShipNum();
+            cout << "You sunk their ship!" << endl;
 			sinkShip(temp);
+            iwin =0;
 			break;
 		case deck:
 			blocks[index].setStatus(hitship);
+            cout << "You've got a hit!"<< endl;
+            iwin = 0;
 			break;
 		case artillery:
 			blocks[index].setStatus(hitship);
-			// ********** lose turn code here *************
+            cout<< "You've hit the artillery! They have no weapons to fire back with.. take another turn!" << endl;
+            iwin = 1;
 			break;
 		case water:
 			blocks[index].setStatus(hitwater);
+            cout << "Only water there..." << endl;
+            iwin = 0;
 			break;
+        default:
+            cout << "We could not process those coordinates, sorry!" << endl;
+            return 0;
 	}
+    
+    for (int i = 0; i < dimension/3, i++;){
+        int size = ships[i].getSize();
+        int *temp = ships[i].getBlocks();
+        for (int j = 0; j < size; j ++){
+            if (blocks[temp[j]].getStatus() == notchecked){
+                k++;
+            }
+            l++;
+        }
+    }
+    if (k != l) { iwin = 2; cout << "CONGRATULATIONS!!!" << endl;}
+    return iwin;
 }
 
 /**
@@ -98,7 +128,7 @@ void board::sinkShip(int number){
 }
 
 // Print out entire board to the system display
-void board::printBoard(int player){
+void board::printBoard(int gamesetup){
 	// for the first row, print out column information
 	cout << "   ";
 	for(int j=0; j < dimension; j++) { cout << " " << j+1 << " "; }
@@ -108,7 +138,7 @@ void board::printBoard(int player){
 		cout << " " << (char)(i+65) << " ";		// print row character
 		for(int j=0; j < dimension; j++) {
 			int index = i*dimension + j;
-			blocks[index].printBlock(player);
+			blocks[index].printBlock(gamesetup);
 		}
 		cout << endl;							// change line at the end of the row
 	}
@@ -141,7 +171,7 @@ void board::PlaceShips(int size, int shipno) {
 	char orient = ShipOrientation(size, type);
 
 	// ask user for desired location and translate into indexed location on board
-	cout << "Where would you like to place this ship?: ";
+	cout << "Where would you like to place the engine [0] of this ship?: ";
 	cin >> input;
 	cin.ignore();
 	index[0] = convertIndex(input);
