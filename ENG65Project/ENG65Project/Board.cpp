@@ -118,14 +118,13 @@ board::board() {                     // default constructor for a 5x5 board
     }
     
     void board::PlaceShips(std::string shiptype, std::string location, int shipno){
-        //translate desired location into indexed location on board
+                                                //translate desired location into indexed location on board
         int index = converttoindex(location);
         int shipsize = shiptype[0];
         char type = shiptype[1];
         char orient = shiptype[2];
-        int index2, index3, index4;
+        int index2, index3, index4, index5;
         
-        //ships[shipno] = new ship(shipsize);
         blocks[index].settype(engine);
         blocks[index].setshipno(shipno);
         ships[shipno].setblock(index);
@@ -305,6 +304,90 @@ board::board() {                     // default constructor for a 5x5 board
                 ships[shipno].setblock(index4);
                 break;
             case 5:
+                switch (type){
+                        case 'a':
+                            switch (orient){
+                                case 'a':
+                                    index2 = index - dimension;
+                                    index3 = index2 - dimension;
+                                    index4 = index3 + 1;
+                                    index5 = index3 -1;
+                                    break;
+                                case 'b':
+                                    index2 = index + 1;
+                                    index3 = index2 + 1;
+                                    index4 = index3 - dimension;
+                                    index5 = index3 + dimension;
+                                    break;
+                                case 'c':
+                                    index2 = index + dimension;
+                                    index3 = index2 + dimension;
+                                    index4 = index3 + 1;
+                                    index5 = index3 -1;
+                                    break;
+                                case 'd':
+                                    index2 = index - 1;
+                                    index3 = index2 - 1;
+                                    index4 = index3 - dimension;
+                                    index5 = index3 + dimension;
+                                    break;
+                            }
+                        break;
+                        case 'b':
+                                switch (orient){
+                                    case 'a':
+                                        break;
+                                    case 'b':
+                                        break;
+                                    case 'c':
+                                        break;
+                                    case 'd':
+                                        break;
+                                }
+                        break;
+                        case 'c':
+                                switch (orient){
+                                    case 'a':
+                                        break;
+                                    case 'b':
+                                        break;
+                                    case 'c':
+                                        break;
+                                    case 'd':
+                                        break;
+                                }
+                        break;
+                        case 'd':
+                                switch (orient){
+                                    case 'a':
+                                        break;
+                                    case 'b':
+                                        break;
+                                    case 'c':
+                                        break;
+                                    case 'd':
+                                        break;
+                                }
+                        break;
+                        default:
+                            break;
+                        }
+                blocks[index2].settype(deck);
+                blocks[index2].setshipno(shipno);
+                ships[shipno].setblock(index2);
+                
+                blocks[index3].settype(deck);
+                blocks[index3].setshipno(shipno);
+                ships[shipno].setblock(index3);
+                
+                blocks[index4].settype(deck);
+                blocks[index4].setshipno(shipno);
+                ships[shipno].setblock(index4);
+                
+                blocks[index5].settype(deck);
+                blocks[index5].setshipno(shipno);
+                ships[shipno].setblock(index5);
+                
                 break;
             default:
                 
