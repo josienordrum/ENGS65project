@@ -3,6 +3,7 @@
 //  ENG65Project
 //
 //  Created by Josephine Nordrum on 3/11/16.
+//  Edited by Jenny Seong on 3/11/16.
 //  Copyright © 2016 Josephine Nordrum. All rights reserved.
 //
 
@@ -184,6 +185,7 @@ void board::PlaceShips(int size, int shipno) {
 					index[1] = index[0] + dimension;
 					index[2] = index[0] + 2*dimension;
 				}
+				else { cout << "Something's wrong..." << endl; }
 				break;
 			case 'b':
 				if (orient == 'a') {
@@ -202,6 +204,7 @@ void board::PlaceShips(int size, int shipno) {
 					index[1] = index[0] - 1;
 					index[2] = index[2] + dimension;
 				}
+				else { cout << "Something's wrong..." << endl; }
 				break;
 			}
 			break;
@@ -220,6 +223,7 @@ void board::PlaceShips(int size, int shipno) {
 				else if (orient == 'd') {
 					for (int i = 1; i < 3; i++) { index[i] = index[i-1] + dimension; }
 				}
+				else { cout << "Something's wrong..." << endl; }
 				break;
 			case 'b':
 				if (orient == 'a') {
@@ -242,6 +246,7 @@ void board::PlaceShips(int size, int shipno) {
 					index[2] = index[0] + dimension;
 					index[3] = index[2] -1;
 				}
+				else { cout << "Something's wrong..." << endl; }
 				break;
 			case 'c':
 				if (orient == 'a') {
@@ -264,6 +269,7 @@ void board::PlaceShips(int size, int shipno) {
 					index[2] = index[1] - dimension;
 					index[3] = index[2] + 1;
 				}
+				else { cout << "Something's wrong..." << endl; }
 				break;
 			}
 			break;
@@ -282,6 +288,7 @@ void board::PlaceShips(int size, int shipno) {
 				else if (orient == 'd') {
 					for (int i = 1; i < 4; i++) { index[i] = index[i-1] + dimension; }
 				}
+				else { cout << "Something's wrong..." << endl; }
 				break;
 			case 'a':
 				if (orient == 'a') {
@@ -308,6 +315,7 @@ void board::PlaceShips(int size, int shipno) {
 					index[3] = index[2] + dimension;
 					index[4] = index[2] - dimension;
 				}
+				else { cout << "Something's wrong..." << endl; }
 				break;
 			case 'c':
 				if (orient == 'a') {
@@ -334,6 +342,7 @@ void board::PlaceShips(int size, int shipno) {
 					index[3] = index[1] + dimension;
 					index[4] = index[2] + dimension;
 				}
+				else { cout << "Something's wrong..." << endl; }
 				break;
 			}
 			break;
@@ -347,6 +356,6 @@ void board::PlaceShips(int size, int shipno) {
 		blocks[index[i]].setShipNum(shipno);
 	}
 
-	// assign block to ship object
+	// assign array of blocks to ship object
 	ships[shipno].setBlock(index);
 }
