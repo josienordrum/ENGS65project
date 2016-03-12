@@ -11,7 +11,7 @@
 #include "Block.h"
 #include "Ship.h"
 #include "Board.h"
-#include "PrintFns.cpp"
+#include "PrintFns.hpp"
 
 // default constructor for a 5x5 board
 board::board() {
@@ -122,7 +122,7 @@ int board::convertIndex(string input) {
 	// if input coordinates are not included in board, send error message
 	if (index >= dimension*dimension){
 		cout << "That coordinate is not on the board!" << endl;
-		return NULL;
+		return 10000;
 	}
 	return index;
 }
@@ -146,7 +146,7 @@ void board::PlaceShips(int size, int shipno) {
 	index[0] = convertIndex(input);
 
 	// if input coordinate is not valid, print error message
-	if (index[0] == NULL) {
+	if (index[0] == 10000) {
 		cout << "We cannot place the ship in that location." << endl;
 		return;
 	}

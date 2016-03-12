@@ -190,7 +190,6 @@ char ShipOrientation(int size, char type) {
 		cout << "There's something wrong!";
 		return '0';
 	}
-
 	// if there was no error, ask for input and return orientation as character
 	cout << "Enter a, b, c or d >> ";
 	do {
@@ -202,4 +201,5 @@ char ShipOrientation(int size, char type) {
 		else if (input == 'd' || input == 'D') { return 'd'; }
 		else { cout << "Invalid character. Please enter a, b, c or d >>"; }
 	} while (error == 0);
+	return '0';
 }

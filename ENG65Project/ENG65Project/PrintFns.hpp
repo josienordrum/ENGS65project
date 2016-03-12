@@ -11,9 +11,7 @@
 #include <string>
 #include <stdio.h>
 
-char ShipType(int size);
-std::string ShipOrientation(int size, char type);
-
-
+char ShipType(int size);						// function to determine ship type based on size
+char ShipOrientation(int size, char type);		// function to allocate ship orientation based on size and type
 
 #endif /* PrintFns_hpp */
