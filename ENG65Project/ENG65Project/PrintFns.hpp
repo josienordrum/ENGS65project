@@ -12,7 +12,7 @@
 #include <stdio.h>
 
 char ShipType(int size);
-std::string ShipOrientation(int size, char type);
+char ShipOrientation(int size, char type);
 
 
 

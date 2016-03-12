@@ -11,25 +11,23 @@
 #include "Block.h"
 #include "Ship.h"
 
-
 class board{
-    
 private:
-    block *blocks;                //array of ships to check how many are left
-    ship *ships;
-    int dimension;
-    
+	block *blocks;				// array of blocks included in board
+	ship *ships;				// array of ships in game
+	int dimension;				// dimensions of the board (dimension*dimension)
 public:
-    board(); // default constructor for a 5x5 board
-    board(int input, std::string shipsizes);
-    ~board();
-    int getdimension(void);
-    void assignShips(ship* locations);
-    void processcoordinates(std::string stringin);
-    void sinkship(int number);
-    void printBoard();
-    int converttoindex(std::string input);
-    void PlaceShips(std::string shiptype, std::string location, int shipno);
-    
+	board(); 											// default constructor for a 5x5 board
+	board(int size, string shipSizes);					// constructor with input dimensions
+	~board();											// destructor
+
+	int getDimension();									// returns the dimensions of the board
+	void assignShips(ship* locations);					// assign ships to its locations
+	void processCoordinates(string stringin);			// analyze input location
+	void sinkShip(int number);							// sink entire ship with input ship reference number
+	void printBoard(int player);						// print out the whole board to system
+	int convertIndex(string input);						// convert input coordinate to block index number
+	void PlaceShips(int size, int shipno);				// place ships on board
 };
+
 #endif /* Board_h */

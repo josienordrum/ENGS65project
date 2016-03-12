@@ -3,46 +3,47 @@
 //  ENG65Project
 //
 //  Created by Josephine Nordrum on 3/7/16.
+//  Edited by Jenny Seong on 3/11/16.
 //  Copyright © 2016 Josephine Nordrum. All rights reserved.
 //
 
 #ifndef Block_h
 #define Block_h
+
 #include <iostream>
 #include <functional>
+using namespace std;
 
-enum blockstatus {notchecked, hitwater, hitship, sunkship}; //these are the block statuses
-enum blocktype  {water, engine, deck, artillery};           //these are the types of blocks
-enum inputletter {A, B, C, D, E, F, G, H, I, J, K}; //these turn the input coordinates into numbers
-
+enum blockStatus {notchecked, hitwater, hitship, sunkship};		// possible status of blocks
+enum blockType  {water, engine, deck, artillery};				// types of blocks
+enum inputletter {A, B, C, D, E, F, G, H, I, J, K};				// coordinate translator
 
 class block {
 private:
-    blocktype type;             //enumeration of engine/deck/artillary room/ etc
-    blockstatus status;           //enumeration of  float/sunk
-    int boardindex;              //coordinates of block
-    int shipnumber;             //which ship does the block belong to
+    blockType type;               // block type: water/engine/deck/artillery
+    blockStatus status;           // block status: notchecked/hitwater/hitship/sunlship
+    int boardIndex;               // index of block on board
+    int shipNum;                  // ship reference of block
 
 public:
-    block();
-    block(blocktype given, int index, int number);
-    ~block();
+    block();											// default constructor
+    block(blockType given, int index, int number);		// constructor with given situations
+    ~block();											// destructor
     
-    void operator = (block other);
-    void sink(void);
+    void operator = (block other);						// copy information from other block to current block
+    void sink(void);									// sink the block if the ship it belongs to is sunk
     
-    int getshipnumber(void);     //these functions return the values of private members
-    blockstatus getstatus(void);
-    blocktype gettype(void);
-    void setstatus( blockstatus stat);
-    void settype( blocktype stat);
-    void setshipno(int shipno);
-    void setindex(int index);
-    int getindex(void);
+    blockType getType(void);							// return type
+    blockStatus getStatus(void);						// return status
+    int getIndex(void);									// return boardIndex number
+    int getShipNum(void);								// return shipNum
+
+    void setType(blockType tp);							// set the type of the block
+    void setStatus(blockStatus stat);					// set the status of the block
+    void setIndex(int index);							// set the boardIndex
+    void setShipNum(int shipNum);						// set the ship number
     
-    void printblock(void);
+    void printBlock(int player);						// prints block to system according to its status
 };
-
-
 
 #endif /* Block_h */
