@@ -9,7 +9,7 @@
 #include "Block.h"
 #include "Ship.h"
 #include "Board.h"
-#include "PrintFns.h"
+#include "PrintFns.hpp"
 #include <iostream>
 #include <array>
 
