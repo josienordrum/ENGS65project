@@ -3,6 +3,7 @@
 //  ENG65Project
 //
 //  Created by Josephine Nordrum on 3/11/16.
+//  Edited by Jenny Seong on 3/12/16.
 //  Copyright © 2016 Josephine Nordrum. All rights reserved.
 //
 
@@ -190,7 +191,6 @@ char ShipOrientation(int size, char type) {
 		cout << "There's something wrong!";
 		return '0';
 	}
-
 	// if there was no error, ask for input and return orientation as character
 	cout << "Enter a, b, c or d >> ";
 	do {
@@ -202,7 +202,7 @@ char ShipOrientation(int size, char type) {
 		else if (input == 'd' || input == 'D') { return 'd'; }
 		else { cout << "Invalid character. Please enter a, b, c or d >>"; }
 	} while (error == 0);
-    
-    cout << "ERROR: invalid ship" << endl;
-    return 'x';             //if do-while loop is skipped, return dummy char 'x' & alert of error
+
+    cout << "ERROR: invalid ship" << endl;           //if do-while loop is skipped, return dummy char 'x' & alert of error
+	return '0';
 }

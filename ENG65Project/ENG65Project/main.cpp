@@ -29,7 +29,9 @@ int main(int argc, const char * argv[]) {
 	cout << "please enter the size of ship you would like to place on it"<< endl;
 	cin >> comd;
 	talus.PlaceShips(2,2);
-	talus.processCoordinates("C3");
+	int size = comd;
+	talus.PlaceShips(size,2);
+    talus.processCoordinates("C3");
 	talus.printBoard(user);
 
     return 0;

@@ -3,6 +3,7 @@
 //  ENG65Project
 //
 //  Created by Josephine Nordrum on 3/11/16.
+//  Edited by Jenny Seong on 3/12/16.
 //  Copyright © 2016 Josephine Nordrum. All rights reserved.
 //
 
@@ -11,9 +12,7 @@
 #include <string>
 #include <stdio.h>
 
-char ShipType(int size);
-char ShipOrientation(int size, char type);
-
-
+char ShipType(int size);						// function to determine ship type based on size
+char ShipOrientation(int size, char type);		// function to allocate ship orientation based on size and type
 
 #endif /* PrintFns_hpp */
