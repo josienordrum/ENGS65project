@@ -9,56 +9,107 @@
 #include <stdio.h>
 #include "Block.h"
 
-
-block::block(){                        //constructor for unidefned block
+// Default constructor for unidentified block
+block::block(){
     type = water;
     status = notchecked;
-    boardindex = 0;
-    shipnumber = 0;
+    boardIndex = 0;
+    shipNum = 0;
 }
 
-block::block(blocktype given, int index, int number){  //constructor for defined block (still initiates to unchecked)
+/**
+ * Constructor for a block with known information
+ * Will be initiallized as "notchecked" since when a block is first made, it cannot have been checked)
+ */
+block::block(blockType given, int index, int number){
     type = given;
     status = notchecked;
-    boardindex = index;
-    shipnumber = number;
+    boardIndex = index;
+    shipNum = number;
 }
 
-block::~block(){
-}
+// Destructor
+block::~block(){}
 
+// Copy data to current block from "other" block
 void block::operator = (block other){
     type = other.type;
     status = other.status;
-    boardindex = other.boardindex;
-    shipnumber = other.shipnumber;
+    boardIndex = other.boardIndex;
+    shipNum = other.shipNum;
 }
+
+/**
+ * Set the status of the block to "sunkship"
+ * (Using class function "setStatus")
+ */
 void block::sink(void){
-    status = sunkship;
+    setStatus(sunkship);
 }
 
-int block::getshipnumber(void) {return shipnumber;}        //these functions return the values of private members
-blockstatus block::getstatus(void){ return status; }
-blocktype block::gettype(void) { return type; }
-void block::setstatus( blockstatus stat){ status = stat; }
-void block::settype( blocktype stat){ type = stat;}
-void block::setshipno(int shipno){shipnumber = shipno;}
-void block::setindex(int index) {boardindex = index;}
-int block::getindex(void) {return boardindex;}
+// Get the type of the block
+blockType block::getType(void) { return type; }
 
-void block::printblock(void){          //POTENTIALLY override cout instead
-    switch (status) {
-        case notchecked: 		// not checked
-            std::cout << "[ ]";
-            break;
-        case hitwater: 			// hit water
-            std::cout << "[X]";
-            break;
-        case hitship: 			// hit ship
-            std::cout << "[O]";
-            break;
-        case sunkship: 			// sunk ship
-            std::cout << "[0]";
-            break;
-    }
+// Get the status of the block
+blockStatus block::getStatus(void){ return status; }
+
+// Get the board index of the block
+int block::getIndex(void) { return boardIndex; }
+
+// Get the ship number assigned to the block
+int block::getShipNum(void) { return shipNum; }
+
+// Set the block's type
+void block::setType(blockType tp){ type = tp;}
+
+// Set the ship number assigned to the block
+void block::setStatus(blockStatus stat){ status = stat; }
+
+// Set the index on the board assigned to the block
+void block::setIndex(int index) { boardIndex = index; }
+
+// Set the ship number assigned to the block
+void block::setShipNum(int shipNo){ shipNum = shipNo; }
+
+/**
+ * Print out block to system according to the status of the block
+ * player: 0 for user, 1 for opponent
+ * (POSSIBLY OVERRIDE COUT)
+ */
+void block::printBlock(int player){
+	// for the opponent's board (Check status of attacks)
+	if (player == 1) {
+		switch (status) {
+			case notchecked: 		// not checked
+				cout << "[ ]";
+				break;
+			case hitwater: 			// hit water
+				cout << "[X]";
+				break;
+			case hitship: 			// hit ship
+				cout << "[O]";
+				break;
+			case sunkship: 			// sunk ship
+				cout << "[0]";
+				break;
+		}
+	}
+
+	// for the player's board (Check ship placement)
+	else {
+			switch (type) {
+				case water: 		// no ship placed
+					cout << "[ ]";
+					break;
+				case artillery: 	// attack rooms
+					cout << "[X]";
+					break;
+				case deck: 			// decks
+					cout << "[O]";
+					break;
+				case engine: 		// engine rooms
+					cout << "[0]";
+					break;
+			}
+		}
 }
