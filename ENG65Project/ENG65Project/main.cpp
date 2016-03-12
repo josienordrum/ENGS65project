@@ -13,32 +13,25 @@
 #include <iostream>
 #include <array>
 
-
-using namespace std;
-
-
-//int index = (b.x-1)*dimension + b.y;
-
+enum player {user, opponent};
 
 int main(int argc, const char * argv[]) {
-    
-    int dim, comd;
-    string shipsizes;
-	//char shipType;
-    //string coord;
+	int dim, comd;
+	string shipsizes;
 	cout << "Welcome to BATTLESHIP." << endl;
 	cout << "Please enter the dimensions of the board: ";
 	cin >> dim;
-    cout << "OK! You will have " << dim/3 << " ships! What sizes would you like them to be?" << endl;
-    cin >> shipsizes;
-    board talus(dim, shipsizes); talus.printBoard();
-    //board geek; geek.printBoard();
-    cout << "please enter the size of ship you would like to place on it"<< endl;
-    cin >> comd;
-    int size = comd;
-    talus.PlaceShips(ShipOrientation(size, ShipType(size)), "C3", 0);
-    talus.processcoordinates("C3");
-    talus.printBoard();
+	cout << "OK! You will have " << dim/3 << " ships! What sizes would you like them to be?" << endl;
+	cin >> shipsizes;
+	board talus(dim, shipsizes);
+	talus.printBoard(user);
+	//board geek; geek.printBoard();
+	cout << "please enter the size of ship you would like to place on it"<< endl;
+	cin >> comd;
+	int size = comd;
+	talus.PlaceShips(2,2);
+	talus.processCoordinates("C3");
+	talus.printBoard(user);
 
     return 0;
 };
