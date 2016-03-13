@@ -12,14 +12,10 @@
 #include "PrintFns.hpp"
 #include "BoardSetUp.hpp"
 #include "TakeTurn.hpp"
-#include "stdio.h"
 #include <iostream>
 #include <array>
-using namespace std;
-
 
 enum player {user, opponent};
-
 
 int main(int argc, const char * argv[]) {
 	
