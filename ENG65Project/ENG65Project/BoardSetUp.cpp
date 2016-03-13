@@ -8,7 +8,7 @@
 
 #include "BoardSetUp.hpp"
 #include "Board.h"
-#include <stdio.h>
+#include <iostream>
 using namespace std;
 
 void BoardSetUp(string player1, board board1, string shipsizes){
