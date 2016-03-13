@@ -149,15 +149,18 @@ void board::printBoard(int gamesetup){
 int board::convertIndex(string input) {
     string temp;
     int x, y;
+
     if (input.size() > 3){
         cout << "I'm sorry, those coordinates are invalid. Please re-enter in type 'A1'" << endl;
         cin >> temp;
         convertIndex(temp);
-    }else if (input.size() == 3) {
+    }
+    else if (input.size() == 3) {
         temp[0] = input[1]; temp[1] = input[2];
         x = atoi( temp.c_str() ) - 1;
         y = input[0] - 65;
-    }else {
+    }
+    else {
         y = input[0] - 65;				// convert row character into int
         x = input[1] - 49;              // column
     }
@@ -178,6 +181,7 @@ int board::convertIndex(string input) {
  */
 void board::PlaceShips(int size, int shipno) {
 	int index[size];			// array of integers for block indexes
+	bool error;					// error tracker
 	string input;				// variable to store user input
 
 	// ask user for ship type and orientation
@@ -195,12 +199,6 @@ void board::PlaceShips(int size, int shipno) {
 		cout << "We cannot place the ship in that location." << endl;
 		return;
 	}
-    
-	//ships[shipno] = new ship(shipsize);
-
-	// enter engine information on block with entered coordinate
-	blocks[index[0]].setType(engine);
-	blocks[index[0]].setShipNum(shipno);
 
 	// figure out block index numbers for the rest of the ship
 	switch (size){
@@ -395,12 +393,30 @@ void board::PlaceShips(int size, int shipno) {
 			cout << "Invalid ship size!" << endl;
 	}
 
-	// enter information on deck blocks for the rest of the ship
-	for (int i = 1; i<size; i++) {
-		blocks[index[i]].setType(deck);
-		blocks[index[i]].setShipNum(shipno);
+	// if all index numbers fit on the board, enter coordinates
+	for (int i = 0; i<size; i++) { if (fitBoard(index[i])==true) { error = true; } }
+	if (error == false) {
+		// enter engine information on block with entered coordinate
+		blocks[index[0]].setType(engine);
+		blocks[index[0]].setShipNum(shipno);
+		// enter information on deck blocks for the rest of the ship
+		for (int i = 1; i<size; i++) {
+			blocks[index[i]].setType(deck);
+			blocks[index[i]].setShipNum(shipno);
+		}
+		// assign array of blocks to ship object
+		ships[shipno].setBlock(index);
 	}
+	else {
+		cout << "The ship cannot be placed at that location!" << endl;
+	}
+}
 
-	// assign array of blocks to ship object
-	ships[shipno].setBlock(index);
+// Check if input index fits on the board
+bool board::fitBoard(int index) {
+	if ((index < 0) || (index >= dimension*dimension)) {
+		cout << "The index is out of bounds." << endl;
+		return false;
+	}
+	else { return true; }
 }

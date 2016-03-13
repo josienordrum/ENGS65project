@@ -29,6 +29,7 @@ public:
 	void printBoard(int gamesetup);						// print out the whole board to system
 	int convertIndex(string input);						// convert input coordinate to block index number
 	void PlaceShips(int size, int shipno);				// place ships on board
+	bool fitBoard(int index);							// check if coordinates fit on the board
 };
 
 #endif /* Board_h */
