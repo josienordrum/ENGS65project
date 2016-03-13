@@ -37,8 +37,9 @@ char ShipType(int size) {
 
 		case 3:
 			cout << "Choose a ship to place (3-block): " << endl;
-			cout << "(a) [O][O][0]     (b)[O][O]" << endl;
-			cout << "                        [0]" << endl;
+            cout << "(a) Scout:       (b) Submarine: " << endl;
+			cout << " [O][O][0]            [O][O]" << endl;
+            cout << "                         [0]" << endl;
 			cout << "Enter a or b >> ";
 			do {
 				cin >> input;
@@ -53,8 +54,9 @@ char ShipType(int size) {
 
 		case 4:
 			cout << "Choose a ship to place (4-block): " << endl;
-			cout << "(a) [O][O][O][0]     (b)[O][O]     (c) [0][O][O]" << endl;
-			cout << "                        [0][O]               [O]" << endl;
+            cout << "(a) Enterprise       (b) Voyager   (c) Defiant: " << endl;
+			cout << "  [O][O][O][0]          [O][O]     [0][O][O]" << endl;
+			cout << "                        [0][O]           [O]" << endl;
 			cout << "Enter a, b or c >> ";
 			do {
 				cin >> input;
@@ -70,7 +72,8 @@ char ShipType(int size) {
 
 		case 5:
 			cout << "Choose a ship to place (5-block): " << endl;
-			cout << "(a) [O][O][O]     (b)                       (c) [O][O]" << endl;
+            cout << "(a) Destroyer:    (b) Carrier:              (c) Fortress: " << endl;
+			cout << "   [O][O][O]                                    [O][O]" << endl;
 			cout << "       [O]            [O][O][O][O][0]           [O][O]" << endl;
 			cout << "       [0]                                         [0]" << endl;
 			cout << "Enter a, b or c >> ";

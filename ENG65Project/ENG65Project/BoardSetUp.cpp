@@ -20,7 +20,7 @@ void BoardSetUp(string player1, board board1, string shipsizes){
     board1.printBoard(gamesetup);
     
     for( int i = 1; i < board1.getDimension()/3; i++){
-        cout << "The next ship you entered is of size " << shipsizes[i];
+        cout << "The next ship you entered is of size " << shipsizes[i] << ". ";
         temp = shipsizes[i]-48;
         board1.PlaceShips(temp, i);
         board1.printBoard(gamesetup);

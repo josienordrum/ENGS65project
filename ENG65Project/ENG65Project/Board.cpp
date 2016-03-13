@@ -156,12 +156,10 @@ int board::convertIndex(string input) {
     }else if (input.size() == 3) {
         temp[0] = input[1]; temp[1] = input[2];
         x = atoi( temp.c_str() ) - 1;
-        cout << "X is " << x << endl;
-        y = input[1] - 49;
-        cout << "Y is " << y << endl;
+        y = input[0] - 65;
     }else {
-        x = input[0] - 65;				// convert row character into int
-        y = input[1] - 49;              // column
+        y = input[0] - 65;				// convert row character into int
+        x = input[1] - 49;              // column
     }
 				
 	int index = y*dimension + x;

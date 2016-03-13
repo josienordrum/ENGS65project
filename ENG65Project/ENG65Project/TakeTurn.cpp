@@ -34,7 +34,17 @@ void gameplay(void){
     cout << "Welcome to BATTLESHIP." << endl;
     cout << "Please enter the dimensions of the board: ";
     cin >> dim;
-    cout << "OK! You will have " << dim/3 << " ships! What sizes would you like them to be?" << endl;
+    while (dim < 4 || dim > 16){
+        if (dim < 4) {
+            cout << "A board with sides of " << dim << " will be too small; try a size between 4 and 16" << endl;
+            cin >> dim;
+        }
+        if (dim > 16){
+            cout << "A board with sides of " << dim << " will be too large; try a size between 4 and 16" << endl;
+            cin >> dim;
+        }
+    }
+    cout << "OK! You will have " << dim/3 << " ships! What sizes would you like them to be? Enter them as a continuous string. IE: '345'" << endl;
     cin >> shipsizes;
     cout << "Player 1, What would you like to be called?" << endl;
     cin >> player1;
