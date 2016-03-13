@@ -7,15 +7,6 @@
 //  Copyright © 2016 Josephine Nordrum. All rights reserved.
 //
 
-#include "PrintFns.hpp"
-//
-//  PrintFns.cpp
-//  ENG65Project
-//
-//  Created by Josephine Nordrum on 3/11/16.
-//  Copyright © 2016 Josephine Nordrum. All rights reserved.
-//
-
 #include <stdio.h>
 #include <iostream>
 #include "PrintFns.hpp"
@@ -29,17 +20,18 @@ char ShipType(int size) {
 	char input;				// variable to store input
 	int error = 0;			// error variable for looping for a valid input
 
-	// there's only 1 option for a 2-block ship
 	switch(size){
 		case 2:
+			// there's only 1 option for a 2-block ship
 			return 'a';
 			break;
 
 		case 3:
+			// 2 options for a 3-block ship
 			cout << "Choose a ship to place (3-block): " << endl;
             cout << "(a) Scout:       (b) Submarine: " << endl;
-			cout << " [O][O][0]            [O][O]" << endl;
-            cout << "                         [0]" << endl;
+			cout << "    [O][O][0]        [O][O]" << endl;
+            cout << "                        [0]" << endl;
 			cout << "Enter a or b >> ";
 			do {
 				cin >> input;
@@ -53,10 +45,11 @@ char ShipType(int size) {
 			break;
 
 		case 4:
+			// 3 options for a 4-block ship
 			cout << "Choose a ship to place (4-block): " << endl;
             cout << "(a) Enterprise       (b) Voyager   (c) Defiant: " << endl;
-			cout << "  [O][O][O][0]          [O][O]     [0][O][O]" << endl;
-			cout << "                        [0][O]           [O]" << endl;
+			cout << "    [O][O][O][0]         [O][O]        [0][O][O]" << endl;
+			cout << "                         [0][O]              [O]" << endl;
 			cout << "Enter a, b or c >> ";
 			do {
 				cin >> input;
@@ -71,9 +64,10 @@ char ShipType(int size) {
 			break;
 
 		case 5:
+			// 3 options for a 5-block ship
 			cout << "Choose a ship to place (5-block): " << endl;
             cout << "(a) Destroyer:    (b) Carrier:              (c) Fortress: " << endl;
-			cout << "   [O][O][O]                                    [O][O]" << endl;
+			cout << "    [O][O][O]                                   [O][O]" << endl;
 			cout << "       [O]            [O][O][O][O][0]           [O][O]" << endl;
 			cout << "       [0]                                         [0]" << endl;
 			cout << "Enter a, b or c >> ";
@@ -115,7 +109,6 @@ char ShipOrientation(int size, char type) {
 			cout << "                                     [O]          [0]" << endl;
 			break;
 
-			// print out options for the 2 types of 3-block ships
 		case 3:
 			switch (type){
 				case 'a': {
@@ -133,7 +126,7 @@ char ShipOrientation(int size, char type) {
 					break;
 			}
 			break;
-			// print out options for the 3 types of 4-block ships
+
 		case 4:
 			switch (type){
 				case'a':
@@ -157,7 +150,6 @@ char ShipOrientation(int size, char type) {
 					break;
 			} break;
 
-			// print out options for the 3 types of 5-block ships
 		case 5:
 			switch (type){
 				case 'b':
@@ -206,6 +198,7 @@ char ShipOrientation(int size, char type) {
 		else { cout << "Invalid character. Please enter a, b, c or d >>"; }
 	} while (error == 0);
 
-    cout << "ERROR: invalid ship" << endl;           //if do-while loop is skipped, return dummy char 'x' & alert of error
+	// if do-while loop is skipped, return dummy char '0' & alert of error
+    cout << "ERROR: invalid ship" << endl;
 	return '0';
 }
