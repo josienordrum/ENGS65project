@@ -147,9 +147,24 @@ void board::printBoard(int gamesetup){
 
 // Convert input string into index
 int board::convertIndex(string input) {
-	int x = input[0] - 65;				// convert row character into int
-	int y = input[1] - 49;				// column
-	int index = x*dimension + y;
+    string temp;
+    int x, y;
+    if (input.size() > 3){
+        cout << "I'm sorry, those coordinates are invalid. Please re-enter in type 'A1'" << endl;
+        cin >> temp;
+        convertIndex(temp);
+    }else if (input.size() == 3) {
+        temp[0] = input[1]; temp[1] = input[2];
+        x = atoi( temp.c_str() ) - 1;
+        cout << "X is " << x << endl;
+        y = input[1] - 49;
+        cout << "Y is " << y << endl;
+    }else {
+        x = input[0] - 65;				// convert row character into int
+        y = input[1] - 49;              // column
+    }
+				
+	int index = y*dimension + x;
 	// if input coordinates are not included in board, send error message
 	if (index >= dimension*dimension){
 		cout << "That coordinate is not on the board! Please try again:" << endl;
