@@ -97,10 +97,11 @@ int board::processCoordinates(string stringin) {
 			break;
         default:
             cout << "We could not process those coordinates, sorry!" << endl;
-            return 0;
+            iwin = 0;
+            break;
 	}
     
-    for (int i = 0; i < dimension/3, i++;){
+    for (int i = 0; i < dimension/3; i++){
         int size = ships[i].getSize();
         int *temp = ships[i].getBlocks();
         for (int j = 0; j < size; j ++){
@@ -119,9 +120,9 @@ int board::processCoordinates(string stringin) {
  * Thus, we need to go into the blocks included in the ship and change the status of all blocks.
  */
 void board::sinkShip(int number){
-	int *tosink;
-	tosink = ships[number-1].getBlocks();
-	int size = ships[number-1].getSize();
+	int * tosink;
+	tosink = ships[number].getBlocks();
+	int size = ships[number].getSize();
 	for (int i = 0; i<size; i++){
 		blocks[tosink[i]].sink();
 	}

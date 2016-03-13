@@ -51,12 +51,13 @@ void gameplay(void){
     int gamep = 0;
     int result1, result2;
     
+    
     do {
         result1 = TakeTurn(board2, player1);
    
         if (result1 != 0){
             if (result1 == 2) {
-                cout << "YOU WIN!" << player1 << endl;
+                cout << "YOU WIN " << player1 << "!!!!!"<< endl;
                 gamep = 1;}
         }else{
             result2 = TakeTurn(board1, player2);
@@ -65,11 +66,11 @@ void gameplay(void){
                  TakeTurn(board1, player2);
                 }
             }
-            if (result1 == 2) { gamep = 1; cout << "YOU WIN!" << player2 << endl;}
+            if (result1 == 2) { gamep = 1; cout << "YOU WIN " << player2 << "!!!!" << endl;}
         }
         
     } while (gamep == 0);
     
-    
+    cout << "Thanks for playing!!" << endl;
     
 }
