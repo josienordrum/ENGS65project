@@ -17,7 +17,7 @@ using namespace std;
 
 int TakeTurn(board theirboard, string player){
     
-    cout << player << ", it's your turn! Here is your opponnents' board: " << endl;
+    cout << endl << endl << player << ", it's your turn! Here is your opponnents' board: " << endl;
     theirboard.printBoard(1);
     cout << "Enter the coordinates you would like to check:" << endl;
     string check;
@@ -44,8 +44,14 @@ void gameplay(void){
             cin >> dim;
         }
     }
-    cout << "OK! You will have " << dim/3 << " ships! What sizes would you like them to be? Enter them as a continuous string. IE: '345'" << endl;
-    cin >> shipsizes;
+    cout << "OK! You will have " << dim/3 << " ships! What sizes would you like them to be?" << endl;
+    char temp;
+    for (int i =0; i < dim/3; i++){
+        cout << "Ship " << i << ": " ;
+        cin >> temp;
+        shipsizes[i] = temp;
+    }
+    cout << "sizes " << shipsizes[0] << shipsizes[1] << shipsizes[2]<< endl;
     cout << "Player 1, What would you like to be called?" << endl;
     cin >> player1;
     cout << "Player 2, what would you like to be called?" << endl;

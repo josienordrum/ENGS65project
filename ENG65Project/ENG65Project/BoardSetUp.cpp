@@ -13,7 +13,7 @@ using namespace std;
 
 void BoardSetUp(string player1, board board1, string shipsizes){
     int gamesetup = 0;                                  //game set up is not done so gamesetup = 0
-    cout << "Hello "<< player1 << "! Let's set up your board! Let's start with your ship of size " << shipsizes[0] << endl;
+    cout <<endl << endl << "Hello "<< player1 << "! Let's set up your board! Let's start with your ship of size " << shipsizes[0] << endl;
     board1.printBoard(gamesetup);
     int temp = shipsizes[0]-48;
     board1.PlaceShips(temp,0);
