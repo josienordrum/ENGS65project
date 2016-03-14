@@ -26,7 +26,7 @@ int takeTurn(Board theirboard, string player){
 
 	cout << endl << endl << player << ", it's your turn! Here is your opponnent's board: " << endl;
 	theirboard.printBoard(1);
-	cout << "Enter the coordinates you would like to check: " << endl;
+	cout << "Enter the coordinates you would like to check (e.g. A5) >> "
 	cin >> check;
 	cin.ignore(256,'\n');
 	int turn = theirboard.processCoordinates(check);
