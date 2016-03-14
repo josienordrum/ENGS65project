@@ -37,7 +37,7 @@ void boardSetUp(string player, Board board1, int* shipSizes){
 			cin >> happiness;
 			cin.ignore(256, '\n');
 			if (happiness == 'n' || happiness == 'N') {
-				cout << "What's wrong with it?" << endl;
+				cout << endl << "What's wrong with it?" << endl;
 				cout << "1) I don't like the ship itself. I want to choose a different ship!" << endl;
 				cout << "2) I just want to move it a little." << endl;
 				cout << "Enter 1 or 2 (default = 2): ";

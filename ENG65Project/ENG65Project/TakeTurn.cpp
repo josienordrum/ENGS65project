@@ -60,14 +60,14 @@ void gameplay(void){
 		}
 		cin >> dim;
 	}
+	// construct boards for the players
+	Board board1(dim);
+	Board board2(dim);
+
 	cout << "Player 1, What would you like to be called?" << endl << ">> ";
 	cin >> player1;
 	cout << "Player 2, what would you like to be called?" << endl << ">> ";
 	cin >> player2;
-
-	// construct boards for the players
-	Board board1(dim);
-	Board board2(dim);
 
 	// ask for sizes of ships they will be using
 	int numShips = dim/3;
@@ -89,15 +89,17 @@ void gameplay(void){
 	cout << endl;
 
 	//set up each player's board
+	cout << string(50, '\n');
 	boardSetUp(player1, board1, shipSizes);
+	cout << string(50, '\n');
 	boardSetUp(player2, board2, shipSizes);
+	cout << string(50, '\n');
 
 	//run through the game
 	int gamep = 0;                        // variable to check if the game is done or not
 	int result1, result2;
 	do {
 		result1 = takeTurn(board2, player1);
-   
 		if (result1 != 0){
 			if (result1 == 2) {
 				cout << "CONGRATULATIONS!!!" << endl;
@@ -116,9 +118,7 @@ void gameplay(void){
 				cout << "CONGRATULATIONS!!!" << endl;
 				cout << "YOU WIN " << player2 << "!!!!!" << endl;}
 		}
-
 	} while (gamep == 0);
 
-	cout << "Thanks for playing!!" << endl;
-
+	cout << endl << "Thanks for playing!!" << endl;
 }
