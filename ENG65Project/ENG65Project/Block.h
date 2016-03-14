@@ -14,8 +14,8 @@
 #include <functional>
 using namespace std;
 
-enum blockStatus {notchecked, hitwater, hitship, sunkship};		// possible status of blocks
-enum blockType  {water, engine, deck, artillery};				// types of blocks
+enum blockStatus {notchecked, hitwater, hitship, sunkship};    // possible status of blocks
+enum blockType  {water, engine, deck, artillery};              // types of blocks
 
 class block {
 private:
@@ -25,24 +25,24 @@ private:
     int shipNum;                  // ship reference of block
 
 public:
-    block();											// default constructor
-    block(blockType given, int index, int number);		// constructor with given situations
-    ~block();											// destructor
+    block();                                            // default constructor
+    block(blockType given, int index, int number);      // constructor with given situations
+    ~block();                                           // destructor
     
-    void operator = (block other);						// copy information from other block to current block
-    void sink(void);									// sink the block if the ship it belongs to is sunk
+    void operator = (block other);                      // copy information from other block to current block
+    void sink(void);                                    // sink the block if the ship it belongs to is sunk
     
-    blockType getType(void);							// return type
-    blockStatus getStatus(void);						// return status
-    int getIndex(void);									// return boardIndex number
-    int getShipNum(void);								// return shipNum
+    blockType getType(void);                            // return type
+    blockStatus getStatus(void);                        // return status
+    int getIndex(void);                                 // return boardIndex number
+    int getShipNum(void);                               // return shipNum
 
-    void setType(blockType tp);							// set the type of the block
-    void setStatus(blockStatus stat);					// set the status of the block
-    void setIndex(int index);							// set the boardIndex
-    void setShipNum(int shipNum);						// set the ship number
+    void setType(blockType tp);                         // set the type of the block
+    void setStatus(blockStatus stat);                   // set the status of the block
+    void setIndex(int index);                           // set the boardIndex
+    void setShipNum(int shipNum);                       // set the ship number
     
-    void printBlock(int gamesetup);						// prints block to system according to its status
+    void printBlock(int gamesetup);                     // prints block to system according to its status
 };
 
 #endif /* Block_h */
