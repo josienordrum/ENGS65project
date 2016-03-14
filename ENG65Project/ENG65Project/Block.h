@@ -16,7 +16,6 @@ using namespace std;
 
 enum blockStatus {notchecked, hitwater, hitship, sunkship};		// possible status of blocks
 enum blockType  {water, engine, deck, artillery};				// types of blocks
-enum inputletter {A, B, C, D, E, F, G, H, I, J, K};				// coordinate translator
 
 class block {
 private:
