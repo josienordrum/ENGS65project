@@ -50,11 +50,6 @@ board::~board() {
 // returns the dimension data of the board
 int board::getDimension(void) { return dimension; }
 
-//??
-void board::assignShips(ship* locations) {
-	//	ship = locations;
-}
-
 /**
  * Analyze the input coordinate and change status
  * (The attack aspect of the game)
@@ -115,19 +110,6 @@ int board::processCoordinates(string stringin) {
     return iwin;
 }
 
-/**
- * When the attack hits an engine room of the ship, the whole ship sinks.
- * Thus, we need to go into the blocks included in the ship and change the status of all blocks.
- */
-void board::sinkShip(int number){
-	int * tosink;
-	tosink = ships[number].getBlocks();
-	int size = ships[number].getSize();
-	for (int i = 0; i<size; i++){
-		blocks[tosink[i]].sink();
-	}
-}
-
 // Print out entire board to the system display
 void board::printBoard(int gamesetup){
 	// for the first row, print out column information
@@ -145,7 +127,9 @@ void board::printBoard(int gamesetup){
 	}
 }
 
-// Convert input string into index
+/**
+ * Convert input string into index
+ */
 int board::convertIndex(string input) {
     string temp;
     int x, y;
@@ -176,17 +160,40 @@ int board::convertIndex(string input) {
 }
 
 /**
+ * Convert board's block index into coordinates for user interface
+ */
+string board::convertCoord(int index) {
+	int row, column;
+	string coordinates = "";
+	column = (index+1) % dimension;
+	row = (index+1-column) / dimension;
+	coordinates[0] = row + 65;
+	coordinates[1] = column + 49;
+	return coordinates;
+}
+
+// Check if input index fits on the board
+bool board::fitBoard(int index) {
+	if ((index < 0) || (index >= dimension*dimension)) {
+		cout << "The index is out of bounds." << endl;
+		return false;
+	}
+	else { return true; }
+}
+
+/**
  * Place desired ships onto board
  * Need to input which ship and size of ship being placed
  */
-void board::PlaceShips(int size, int shipno) {
+void board::placeShip(int shipNo) {
+	// get ship size, type, and orientation from desired ship
+	int size = ships[shipNo].getSize();
+	char type = ships[shipNo].getType();
+	char orient = ships[shipNo].getOrientation();
+
 	int index[size];			// array of integers for block indexes
 	bool error;					// error tracker
 	string input;				// variable to store user input
-
-	// ask user for ship type and orientation
-	char type = ShipType(size);
-	char orient = ShipOrientation(size, type);
 
 	// ask user for desired location and translate into indexed location on board
 	cout << "Where would you like to place the engine [0] of this ship?: ";
@@ -398,25 +405,50 @@ void board::PlaceShips(int size, int shipno) {
 	if (error == false) {
 		// enter engine information on block with entered coordinate
 		blocks[index[0]].setType(engine);
-		blocks[index[0]].setShipNum(shipno);
+		blocks[index[0]].setShipNum(shipNo);
 		// enter information on deck blocks for the rest of the ship
 		for (int i = 1; i<size; i++) {
 			blocks[index[i]].setType(deck);
-			blocks[index[i]].setShipNum(shipno);
+			blocks[index[i]].setShipNum(shipNo);
 		}
 		// assign array of blocks to ship object
-		ships[shipno].setBlock(index);
+		ships[shipNo].setBlock(index);
 	}
 	else {
 		cout << "The ship cannot be placed at that location!" << endl;
 	}
+	printBoard(0);
 }
 
-// Check if input index fits on the board
-bool board::fitBoard(int index) {
-	if ((index < 0) || (index >= dimension*dimension)) {
-		cout << "The index is out of bounds." << endl;
-		return false;
+// clear blocks related to given ship
+void board::clearShip(int shipNo) {
+	int size = ships[shipNo].getSize();
+	int temp[size];
+	temp = ships[shipNo].getBlocks();
+	for (int i = 0; i<size; i++) {
+		blocks[index[i]].setType(water);
+		blocks[index[i]].setShipNum(0);
 	}
-	else { return true; }
+}
+
+// move selected ship
+void board::moveShip(int shipNo) {
+	int index = ships[shipNo].getEngine();
+	cout << "Moving ship located at " << convertCoord(index) << endl;
+	printBoard(0);
+	clearShip(shipNo);
+	placeShip(shipNo);
+}
+
+/**
+ * When the attack hits an engine room of the ship, the whole ship sinks.
+ * Thus, we need to go into the blocks included in the ship and change the status of all blocks.
+ */
+void board::sinkShip(int shipNo){
+	int * tosink;
+	tosink = ships[shipNo].getBlocks();
+	int size = ships[shipNo].getSize();
+	for (int i = 0; i<size; i++){
+		blocks[tosink[i]].sink();
+	}
 }

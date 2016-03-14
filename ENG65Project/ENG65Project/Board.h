@@ -23,13 +23,16 @@ public:
 	~board();											// destructor
 
 	int getDimension();									// returns the dimensions of the board
-	void assignShips(ship* locations);					// assign ships to its locations
 	int processCoordinates(string stringin);			// analyze input location
-	void sinkShip(int number);							// sink entire ship with input ship reference number
 	void printBoard(int gamesetup);						// print out the whole board to system
 	int convertIndex(string input);						// convert input coordinate to block index number
-	void PlaceShips(int size, int shipno);				// place ships on board
+	string convertCoord(int index);						// convert index into coordinate string
 	bool fitBoard(int index);							// check if coordinates fit on the board
+
+	void placeShip(int shipNo);							// place ship on board
+	void clearShip(int shipNo);							// clear board related to ships
+	void moveShip(int shipNo);							// move ship
+	void sinkShip(int shipNo);							// sink entire ship with input ship reference number
 };
 
 #endif /* Board_h */
