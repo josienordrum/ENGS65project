@@ -3,7 +3,7 @@
 //  ENG65Project
 //
 //  Created by Josephine Nordrum on 3/11/16.
-//  Edited by Jenny Seong on 3/12/16.
+//  Edited by Jenny Seong on 3/14/16.
 //  Copyright © 2016 Josephine Nordrum. All rights reserved.
 //
 

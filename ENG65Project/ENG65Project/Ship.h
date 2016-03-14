@@ -29,7 +29,7 @@ public:
     ship();											// default constructor
     ~ship();										// destructor
 
-    void shipSetup();								// set size, type, orientation
+    void shipSetup(int shipSize);					// set size, type, orientation
     int  getSize();									// returns size of ship
     char getType();									// returns type of ship
     char getOrientation();							// returns orientation of ship

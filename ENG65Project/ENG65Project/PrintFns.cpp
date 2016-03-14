@@ -16,7 +16,7 @@ using namespace std;
  * Enter ship size, prints out the types of ships with that number of blocks
  * Returns the character of the ship to choose orientation
  */
-char ShipType(int size) {
+char shipType(int size) {
 	char input;				// variable to store input
 	int error = 0;			// error variable for looping for a valid input
 
@@ -96,7 +96,7 @@ char ShipType(int size) {
  * Prints out possible orientations, asks for input
  * Returns the input as the orientation of the ship as a character
  */
-char ShipOrientation(int size, char type) {
+char shipOrientation(int size, char type) {
 	char input;					// variable to store input
 	int error = 0;				// error tracking variable
 

@@ -3,6 +3,7 @@
 //  ENG65Project
 //
 //  Created by Josephine Nordrum on 3/12/16.
+//  Edited by Jenny Seong on 3/14/16.
 //  Copyright © 2016 Josephine Nordrum. All rights reserved.
 //
 
@@ -15,78 +16,102 @@
 
 using namespace std;
 
-int TakeTurn(board theirboard, string player){
-    
-    cout << endl << endl << player << ", it's your turn! Here is your opponnents' board: " << endl;
-    theirboard.printBoard(1);
-    cout << "Enter the coordinates you would like to check:" << endl;
-    string check;
-    cin >> check;
-    int turn = theirboard.processCoordinates(check);
-    return turn;
+/**
+ * The attack phase of the game.
+ */
+int takeTurn(Board theirboard, string player){
+	string check;			// coordinate input for attacking
+
+	cout << endl << endl << player << ", it's your turn! Here is your opponnent's board: " << endl;
+	theirboard.printBoard(1);
+	cout << "Enter the coordinates you would like to check:" << endl;
+	cin >> check;
+	cin.ignore();
+	int turn = theirboard.processCoordinates(check);
+	return turn;
 }
 
+/**
+ * Overall gameplay of the game
+ */
 void gameplay(void){
-    int dim;
-    string shipsizes, player1, player2;
-    
-    //intro
-    cout << "Welcome to BATTLESHIP." << endl;
-    cout << "Please enter the dimensions of the board: ";
-    cin >> dim;
-    while (dim < 4 || dim > 16){
-        if (dim < 4) {
-            cout << "A board with sides of " << dim << " will be too small; try a size between 4 and 16" << endl;
-            cin >> dim;
-        }
-        if (dim > 16){
-            cout << "A board with sides of " << dim << " will be too large; try a size between 4 and 16" << endl;
-            cin >> dim;
-        }
-    }
-    cout << "OK! You will have " << dim/3 << " ships! What sizes would you like them to be?" << endl;
-    char temp;
-    for (int i =0; i < dim/3; i++){
-        cout << "Ship " << i << ": " ;
-        cin >> temp;
-        shipsizes[i] = temp;
-    }
-    cout << "sizes " << shipsizes[0] << shipsizes[1] << shipsizes[2]<< endl;
-    cout << "Player 1, What would you like to be called?" << endl;
-    cin >> player1;
-    cout << "Player 2, what would you like to be called?" << endl;
-    cin >> player2;
-    //construct boards for the players
-    board board1(dim, shipsizes);
-    board board2(dim, shipsizes);
-    //set up each player's board
-    BoardSetUp(player1, board1, shipsizes);
-    BoardSetUp(player2, board2, shipsizes);
-    
-    //run through the game
-    int gamep = 0;
-    int result1, result2;
-    
-    
-    do {
-        result1 = TakeTurn(board2, player1);
+	int dim, input;						// variable to store input dimensions and ship sizes
+	string player1, player2;			// 2 players for a game
+
+	cout << "Welcome to BATTLESHIP." << endl;
+	cout << "Please enter the dimensions of the board (4~16): ";
+	cin >> dim;
+	cin.ignore();
+	while (dim < 4 || dim > 16){
+		if (dim < 4) {
+			cout << "A board with sides of " << dim << " will be too small." << endl;
+			cout << "try a size between 4 and 16: " << endl;
+		}
+		if (dim > 16) {
+			cout << "A board with sides of " << dim << " will be too large." << endl;
+			cout << "try a size between 4 and 16: " << endl;
+		}
+		cin >> dim;
+		cin.ignore();
+	}
+	cout << "Player 1, What would you like to be called?" << endl << ">> ";
+	cin >> player1;
+	cin.ignore();
+	cout << "Player 2, what would you like to be called?" << endl << ">> ";
+	cin >> player2;
+	cin.ignore();
+
+	// construct boards for the players
+	Board board1(dim);
+	Board board2(dim);
+
+	// ask for sizes of ships they will be using
+	int numShips = dim/3;
+	int shipSizes[numShips];
+	cout << "You will have " << numShips << " ships each." << endl;
+	for (int i = 0; i < numShips; i++) {
+		bool error = true;
+		cout << "What size should ship #" << i+1 << " be? Enter 2, 3, 4, or 5: ";
+		while (error == true) {
+			cin >> input;
+			cin.ignore();
+			if (input >= 2 && input <= 5) { error = false; }
+			else { cout << "Invalid ship size. Please enter 2, 3, 4, or 5: "; }
+		}
+		shipSizes[i] = input;
+	}
+	cout << "The input ship sizes are ";
+	for (int i = 0; i < numShips; i++) { cout << shipSizes[i] << ". "; }
+	cout << endl;
+
+	//set up each player's board
+	boardSetUp(player1, board1, shipSizes);
+	boardSetUp(player2, board2, shipSizes);
+
+	//run through the game
+	int gamep = 0;
+	int result1, result2;
+
+	do {
+		result1 = takeTurn(board2, player1);
    
-        if (result1 != 0){
-            if (result1 == 2) {
-                cout << "YOU WIN " << player1 << "!!!!!"<< endl;
-                gamep = 1;}
-        }else{
-            result2 = TakeTurn(board1, player2);
-            if (result2 != 0){
-                while (result2 == 1){
-                 TakeTurn(board1, player2);
-                }
-            }
-            if (result1 == 2) { gamep = 1; cout << "YOU WIN " << player2 << "!!!!" << endl;}
-        }
-        
-    } while (gamep == 0);
-    
-    cout << "Thanks for playing!!" << endl;
-    
+		if (result1 != 0){
+			if (result1 == 2) {
+				cout << "YOU WIN " << player1 << "!!!!!"<< endl;
+				gamep = 1;}
+		}
+		else{
+			result2 = takeTurn(board1, player2);
+			if (result2 != 0){
+				while (result2 == 1){
+				 takeTurn(board1, player2);
+				}
+			}
+			if (result1 == 2) { gamep = 1; cout << "YOU WIN " << player2 << "!!!!" << endl;}
+		}
+
+	} while (gamep == 0);
+
+	cout << "Thanks for playing!!" << endl;
+
 }

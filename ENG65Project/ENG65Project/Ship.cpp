@@ -3,7 +3,7 @@
 //  ENG65Project
 //
 //  Created by Josephine Nordrum on 3/11/16.
-//  Edited by Jenny Seong 3/11/16.
+//  Edited by Jenny Seong 3/14/16.
 //  Copyright © 2016 Josephine Nordrum. All rights reserved.
 //
 
@@ -42,19 +42,10 @@ ship::~ship(){
 /**
  * Set up parameters of the ship using functions from the PrintFns file
  */
-void ship::shipSetup() {
-	int input;
-	bool error = true;
-	cout << "What size should the ship be? Enter 2, 3, 4, or 5: ";
-	while (error == true) {
-		cin >> input;
-		cin.ignore();
-		if (input >= 2 && input <= 5) { error = false; }
-		else { cout << "Invalid ship size. Please enter 2, 3, 4, or 5: "; }
-	}
-	size = input;
-	type = ShipType(size);
-	orientation = ShipOrientation(size, type);
+void ship::shipSetup(int shipSize) {
+	size = shipSize;
+	type = shipType(shipSize);
+	orientation = shipOrientation(size, type);
 }
 
 // Return array of block indices for the ship

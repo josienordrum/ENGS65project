@@ -3,7 +3,7 @@
 //  ENG65Project
 //
 //  Created by Josephine Nordrum on 3/11/16.
-//  Edited by Jenny Seong on 3/11/16.
+//  Edited by Jenny Seong on 3/14/16.
 //  Copyright © 2016 Josephine Nordrum. All rights reserved.
 //
 
@@ -11,36 +11,27 @@
 #include "Block.h"
 #include "Ship.h"
 #include "Board.h"
-#include "PrintFns.hpp"
 
 // default constructor for a 5x5 board
-board::board() {
+Board::Board() {
 	blocks = new block[25];
-	ships = new ship[2];
+	for(int j =0; j < 25; j++){ blocks[j].setIndex(j); }
+	numShips = 2;
+	ships = new ship[numShips];
 	dimension = 5;
 }
 
 // constructor with the input number as the dimension
-board::board(int input, string shipsizes) {
-	blocks = new block[input*input];
-    
-	for(int j =0; j < input*input; j++){
-		blocks[j].setIndex(j);
-	}
-    
-    ships = new ship[input/3];
-    int size = input/3;
-    
-	for (int i =0; i < size; i++){
-		int k = shipsizes[i]-48;
-		ships[i] = ship(k, "The Destroyer");
-	}
-    
+Board::Board(int input) {
 	dimension = input;
+	blocks = new block[dimension*dimension];
+	for(int j =0; j < dimension*dimension; j++){ blocks[j].setIndex(j); }
+    numShips = input/3;
+    ships = new ship[numShips];
 }
 
 // Destructor
-board::~board() {
+Board::~Board() {
 	//find which block matches the input coordinates
 	for(int i =0 ; i < dimension*dimension; i++){
 		blocks[i].~block();
@@ -48,13 +39,16 @@ board::~board() {
 }
 
 // returns the dimension data of the board
-int board::getDimension(void) { return dimension; }
+int Board::getDimension(void) { return dimension; }
+
+// returns number of ships that can fit on baord
+int Board::getNumShips() { return numShips; }
 
 /**
  * Analyze the input coordinate and change status
  * (The attack aspect of the game)
  */
-int board::processCoordinates(string stringin) {
+int Board::processCoordinates(string stringin) {
 	int index = convertIndex(stringin);
 	int temp;
     int iwin = 0;
@@ -111,7 +105,7 @@ int board::processCoordinates(string stringin) {
 }
 
 // Print out entire board to the system display
-void board::printBoard(int gamesetup){
+void Board::printBoard(int gamesetup){
 	// for the first row, print out column information
 	cout << "   ";
 	for(int j=0; j < dimension; j++) { cout << " " << j+1 << " "; }
@@ -130,62 +124,72 @@ void board::printBoard(int gamesetup){
 /**
  * Convert input string into index
  */
-int board::convertIndex(string input) {
-    string temp;
-    int x, y;
-
-    if (input.size() > 3){
-        cout << "I'm sorry, those coordinates are invalid. Please re-enter in type 'A1'" << endl;
-        cin >> temp;
-        convertIndex(temp);
-    }
-    else if (input.size() == 3) {
-        temp[0] = input[1]; temp[1] = input[2];
-        x = atoi( temp.c_str() ) - 1;
-        y = input[0] - 65;
-    }
-    else {
-        y = input[0] - 65;				// convert row character into int
-        x = input[1] - 49;              // column
-    }
-				
-	int index = y*dimension + x;
-	// if input coordinates are not included in board, send error message
-	if (index >= dimension*dimension){
-		cout << "That coordinate is not on the board! Please try again:" << endl;
-        cin >> input;
-        convertIndex(input);
+int Board::convertIndex(string input) {
+	string temp;
+	if (input.size() > 3){
+		cout << "I'm sorry, those coordinates are invalid. Please re-enter in type 'A1'" << endl;
+		cin >> temp;
+		cin.ignore();
+		convertIndex(temp);
 	}
-	return index;
+	else {
+		int x, y;
+		if (input.size() == 3) {
+		temp[0] = input[1]; temp[1] = input[2];
+		x = atoi( temp.c_str() ) - 1;
+		y = input[0] - 65;
+		}
+		else {
+			y = input[0] - 65;				// convert row character into int
+			x = input[1] - 49;              // column
+		}
+		int index = y*dimension + x;
+		// if input coordinates are not included in board, send error message
+		if (index >= dimension*dimension){
+			cout << "That coordinate is not on the board! Please try again:" << endl;
+			cin >> input;
+			convertIndex(input);
+		}
+		return index;
+	}
 }
 
 /**
  * Convert board's block index into coordinates for user interface
  */
-string board::convertCoord(int index) {
+string Board::convertCoord(int index) {
 	int row, column;
 	string coordinates = "";
 	column = (index+1) % dimension;
-	row = (index+1-column) / dimension;
-	coordinates[0] = row + 65;
-	coordinates[1] = column + 49;
+	row = (index+1-column) / dimension + 1;
+	coordinates += row + 64;
+	coordinates += column + 48;
 	return coordinates;
 }
 
 // Check if input index fits on the board
-bool board::fitBoard(int index) {
+bool Board::fitBoard(int index) {
 	if ((index < 0) || (index >= dimension*dimension)) {
-		cout << "The index is out of bounds." << endl;
-		return false;
+		cout << "The index " << index << " is out of bounds." << endl;
+		return true;
 	}
-	else { return true; }
+	else { return false; }
 }
 
 /**
  * Place desired ships onto board
  * Need to input which ship and size of ship being placed
  */
-void board::placeShip(int shipNo) {
+void Board::setupShip(int shipNo, int shipSize) {
+	// set up ship by letting user decide what kind of ship they want
+	ships[shipNo].shipSetup(shipSize);
+}
+
+/**
+ * Place desired ships onto board
+ * Need to input which ship is being placed
+ */
+void Board::placeShip(int shipNo) {
 	// get ship size, type, and orientation from desired ship
 	int size = ships[shipNo].getSize();
 	char type = ships[shipNo].getType();
@@ -196,7 +200,10 @@ void board::placeShip(int shipNo) {
 	string input;				// variable to store user input
 
 	// ask user for desired location and translate into indexed location on board
-	cout << "Where would you like to place the engine [0] of this ship?: ";
+	printBoard(0);
+	cout << "Where would you like to place the engine [0] of this ship?" << endl;
+	cout << "Please enter the coordinates using row and column number. (e.g. A5)" << endl;
+	cout << ">> ";
 	cin >> input;
 	cin.ignore();
 	index[0] = convertIndex(input);
@@ -204,7 +211,7 @@ void board::placeShip(int shipNo) {
 	// if input coordinate is not valid, print error message
 	if (index[0] == 10000) {
 		cout << "We cannot place the ship in that location." << endl;
-		return;
+		placeShip(shipNo);
 	}
 
 	// figure out block index numbers for the rest of the ship
@@ -416,26 +423,31 @@ void board::placeShip(int shipNo) {
 	}
 	else {
 		cout << "The ship cannot be placed at that location!" << endl;
+		placeShip(shipNo);
 	}
 	printBoard(0);
 }
 
 // clear blocks related to given ship
-void board::clearShip(int shipNo) {
+void Board::clearShip(int shipNo) {
 	int size = ships[shipNo].getSize();
-	int temp[size];
+	int *temp;
 	temp = ships[shipNo].getBlocks();
 	for (int i = 0; i<size; i++) {
-		blocks[index[i]].setType(water);
-		blocks[index[i]].setShipNum(0);
+		blocks[temp[i]].setType(water);
+		blocks[temp[i]].setShipNum(0);
 	}
 }
 
-// move selected ship
-void board::moveShip(int shipNo) {
+/**
+ * Move selected ship
+ * prints out board and points out the engine to make sure desired ship is being moved
+ */
+void Board::moveShip(int shipNo) {
 	int index = ships[shipNo].getEngine();
-	cout << "Moving ship located at " << convertCoord(index) << endl;
+	cout << index << endl;
 	printBoard(0);
+	cout << "Moving ship located at " << convertCoord(index) << endl << endl;
 	clearShip(shipNo);
 	placeShip(shipNo);
 }
@@ -444,7 +456,7 @@ void board::moveShip(int shipNo) {
  * When the attack hits an engine room of the ship, the whole ship sinks.
  * Thus, we need to go into the blocks included in the ship and change the status of all blocks.
  */
-void board::sinkShip(int shipNo){
+void Board::sinkShip(int shipNo){
 	int * tosink;
 	tosink = ships[shipNo].getBlocks();
 	int size = ships[shipNo].getSize();
