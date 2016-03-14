@@ -36,6 +36,7 @@ public:
     void clearShip(int shipNo);                         // clear board related to ships
     void moveShip(int shipNo);                          // move ship
     void sinkShip(int shipNo);                          // sink entire ship with input ship reference number
+    void setArtillery(string coord);                    // set input block as artillery
 };
 
 #endif /* Board_h */

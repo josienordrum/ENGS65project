@@ -17,6 +17,7 @@ using namespace std;
  */
 void boardSetUp(string player, Board board1, int* shipSizes){
 	char happiness;
+	string input;
 
 	cout << endl << "Hello "<< player << "!" << endl;
 	cout << "Let's set up your board! Here's the board: " << endl;
@@ -33,6 +34,7 @@ void boardSetUp(string player, Board board1, int* shipSizes){
 		// Check if the player is satisfied with the placement
 		while (done == false) {
 			board1.printBoard(0);
+			cout << endl <<"Remember, when the engine [0] of the ship is hit, the whole ship sinks!" << endl;
 			cout << "Do you like the placement of this ship? [y/n] (default = y) >> ";
 			cin >> happiness;
 			cin.ignore(256, '\n');
@@ -53,11 +55,18 @@ void boardSetUp(string player, Board board1, int* shipSizes){
 				else { board1.moveShip(i); }
 			}
 			else {
-				cout << "Good! Let's move on." << endl;
+				cout << "Good! Let's move on." << endl << endl;
 				done = true;
 			}
 		}
 	}
-	cout << "You're done! Your board is set up like this: " << endl;
+	cout << "Now we need to place the artillery. You will be attacking from this location." << endl;
+	cout << "When the artillery gets hit, you will lose a turn." << endl;
+	board1.printBoard(0);
+	cout << "Where would you like to place the artillery?" << endl;
+	cout << "Enter coordinates (e.g. A5) >> ";
+	cin >> input;
+	board1.setArtillery(input);
+	cout << endl << "You're done! Your board is set up like this: " << endl;
 	board1.printBoard(0);
 }

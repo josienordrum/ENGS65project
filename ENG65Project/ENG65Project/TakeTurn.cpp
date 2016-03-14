@@ -40,7 +40,18 @@ void gameplay(void){
 	int dim, input;						// variable to store input dimensions and ship sizes
 	string player1, player2;			// 2 players for a game
 
-	cout << "Welcome to BATTLESHIP." << endl;
+	cout << "Welcome to BATTLESHIP." << endl << endl;
+
+	cout << "      --------------------- <RULES> ---------------------      " << endl;
+	cout << "1) Ships are made of regular decks and one engine room." << endl;
+	cout << "   When the engine room gets hit, the whole ship sinks." << endl;
+	cout << "2) You will get one artillery block on the board." << endl;
+	cout << "   When this block gets hit by your opponent, you lose a turn." << endl;
+	cout << "3) Player 1 goes first, followed by player 2, and so on and so forth." << endl;
+	cout << "4) When you have sunk all the ships, you win." << endl;
+	cout << "      ----------------------------------------------------      " << endl << endl;
+
+	// get dimensions of board
 	cout << "Please enter the dimensions of the board (4~16): ";
 	cin >> dim;
 	while (cin.fail()) {
@@ -60,10 +71,12 @@ void gameplay(void){
 		}
 		cin >> dim;
 	}
+
 	// construct boards for the players
 	Board board1(dim);
 	Board board2(dim);
 
+	// ask for player names
 	cout << "Player 1, What would you like to be called?" << endl << ">> ";
 	cin >> player1;
 	cout << "Player 2, what would you like to be called?" << endl << ">> ";
@@ -86,14 +99,17 @@ void gameplay(void){
 	}
 	cout << "The input ship sizes are ";
 	for (int i = 0; i < numShips; i++) { cout << shipSizes[i] << ". "; }
-	cout << endl;
+	cout << endl << "Now let's set your ships on the board." << endl;
+	waitEnter();
 
 	//set up each player's board
 	cout << string(50, '\n');
 	boardSetUp(player1, board1, shipSizes);
-	cout << string(50, '\n');
+	waitEnter();
 	boardSetUp(player2, board2, shipSizes);
-	cout << string(50, '\n');
+	waitEnter();
+
+	cout << "----- LET THE GAME BEGIN! -----" << endl << endl;
 
 	//run through the game
 	int gamep = 0;                        // variable to check if the game is done or not
@@ -104,21 +120,33 @@ void gameplay(void){
 			if (result1 == 2) {
 				cout << "CONGRATULATIONS!!!" << endl;
 				cout << "YOU WIN " << player1 << "!!!!!"<< endl;
-				gamep = 1;}
+				gamep = 1;
+			}
 		}
 		else{
 			result2 = takeTurn(board1, player2);
 			if (result2 != 0){
-				while (result2 == 1){
+				while (result2 == 1) {
 				 takeTurn(board1, player2);
 				}
 			}
 			if (result2 == 2) {
 				gamep = 1;
 				cout << "CONGRATULATIONS!!!" << endl;
-				cout << "YOU WIN " << player2 << "!!!!!" << endl;}
+				cout << "YOU WIN " << player2 << "!!!!!" << endl;
+			}
 		}
 	} while (gamep == 0);
 
 	cout << endl << "Thanks for playing!!" << endl;
+}
+
+void waitEnter() {
+	cin.clear();
+	cout << endl << "Press return to continue.";
+	cin.ignore(256, '\n');
+	cin.clear();
+	char temp = 'x';
+	while (temp != '\n') { cin.get(temp); }
+	cout << string(25, '\n');
 }

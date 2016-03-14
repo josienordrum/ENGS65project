@@ -136,8 +136,9 @@ void Board::printBoard(int gamesetup){
  */
 int Board::convertIndex(string input) {
 	string temp;
-	if (input.size() > 3){
-		cout << "I'm sorry, those coordinates are invalid. Please re-enter in type 'A1'" << endl;
+	if (input.size() > 3 || input.size() < 2){
+		cout << "I'm sorry, those coordinates are invalid." << endl;
+		cout << "Please re-enter a row character and a column number (e.g. A5) >> " << endl;
 		cin >> temp;
 		cin.ignore();
 		convertIndex(temp);
@@ -470,4 +471,9 @@ void Board::sinkShip(int shipNo){
 	for (int i = 0; i<size; i++){
 		blocks[tosink[i]].sink();
 	}
+}
+
+void Board::setArtillery(string coord) {
+	int index = convertIndex(coord);
+	blocks[index].setType(artillery);
 }

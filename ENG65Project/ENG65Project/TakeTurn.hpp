@@ -16,6 +16,7 @@ using namespace std;
 #include <stdio.h>
 
 int takeTurn(Board theirboard, string player);        // Function for the attack phase of the game
+void waitEnter();                                     // Wait for user to hit return
 void gameplay(void);                                  // Overall gameplay
 
 #endif /* TakeTurn_hpp */

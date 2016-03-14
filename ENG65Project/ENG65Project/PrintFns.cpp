@@ -23,6 +23,8 @@ char shipType(int size) {
 	switch(size){
 		case 2:
 			// there's only 1 option for a 2-block ship
+			cout << "We will be placing the Miniboat: " << endl;
+			cout << "    [O][0]" << endl;
 			return 'a';
 			break;
 
@@ -35,11 +37,12 @@ char shipType(int size) {
 			cout << "Enter a or b >> ";
 			do {
 				cin >> input;
-				cin.ignore();
+				cin.ignore(256, '\n');
 				if (input == 'a' || input == 'A') { return 'a'; }
 				else if (input == 'b' || input == 'B') { return 'b'; }
 				else {
-					cout << "Invalid character. Please enter a or b >>";
+					cout << "Invalid character. Please enter a or b >> ";
+					cin.clear();
 				}
 			} while (error == 0);
 			break;
@@ -53,12 +56,13 @@ char shipType(int size) {
 			cout << "Enter a, b or c >> ";
 			do {
 				cin >> input;
-				cin.ignore();
+				cin.ignore(256, '\n');
 				if (input == 'a' || input == 'A') { return 'a'; }
 				else if (input == 'b' || input == 'B') { return 'b'; }
 				else if (input == 'c' || input == 'C') { return 'c'; }
 				else {
-					cout << "Invalid character. Please enter a, b, or c >>";
+					cout << "Invalid character. Please enter a, b, or c >> ";
+					cin.clear();
 				}
 			} while (error == 0);
 			break;
@@ -73,12 +77,13 @@ char shipType(int size) {
 			cout << "Enter a, b or c >> ";
 			do {
 				cin >> input;
-				cin.ignore();
+				cin.ignore(256, '\n');
 				if (input == 'a' || input == 'A') { return 'a'; }
 				else if (input == 'b' || input == 'B') { return 'b'; }
 				else if (input == 'c' || input == 'C') { return 'c'; }
 				else {
-					cout << "Invalid character. Please enter a, b, or c >>";
+					cout << "Invalid character. Please enter a, b, or c >> ";
+					cin.clear();
 				}
 			} while (error == 0);
 			break;
@@ -190,12 +195,15 @@ char shipOrientation(int size, char type) {
 	cout << "Enter a, b, c or d >> ";
 	do {
 		cin >> input;
-		cin.ignore();
+		cin.ignore(256, '\n');
 		if      (input == 'a' || input == 'A') { return 'a'; }
 		else if (input == 'b' || input == 'B') { return 'b'; }
 		else if (input == 'c' || input == 'C') { return 'c'; }
 		else if (input == 'd' || input == 'D') { return 'd'; }
-		else { cout << "Invalid character. Please enter a, b, c or d >>"; }
+		else {
+			cout << "Invalid character. Please enter a, b, c or d >> ";
+			cin.clear();
+		}
 	} while (error == 0);
 
 	// if do-while loop is skipped, return dummy char '0' & alert of error
