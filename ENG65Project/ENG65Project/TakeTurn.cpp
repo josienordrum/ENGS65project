@@ -143,7 +143,7 @@ void gameplay(void){
 
 void waitEnter() {
 	cin.clear();
-	cout << endl << "Press return to continue.";
+	cout << endl << "Press the RETURN key to continue.";
 	cin.ignore(256, '\n');
 	cin.clear();
 	char temp = 'x';
